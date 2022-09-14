@@ -1,7 +1,7 @@
-import 'package:app_fono/widgets/nav_bar.dart';
+import 'package:app_fono/widgets/login_box.dart';
+import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:flutter/material.dart';
-import '../widgets/centered_view.dart';
-import '../widgets/header.dart';
+import 'package:flutter/rendering.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,15 +9,19 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: CenteredView(
-        child: Column(
-          children: [
-            NavBar(),
-            Header(),
-          ]
-          ),
+      body: ResponsiveBackground(
+        child: LoginBox(),
       ),
     );
+    // return Scaffold(
+    //   backgroundColor: Colors.white,
+    //   body: Container(
+    //     alignment: Alignment.center,
+    //     width: double.infinity,
+    //     height: double.infinity,
+    //     color: Colors.lightBlue,
+    //     child: LoginBox(),
+    //   ),
+    // );
   }
 }

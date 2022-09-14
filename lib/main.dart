@@ -2,7 +2,7 @@ import 'package:app_fono/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main()  => runApp(MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.openSansTextTheme()
+        textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Open Sans'),
       ),
       home: HomePage(),
     );
