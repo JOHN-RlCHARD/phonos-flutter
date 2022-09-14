@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResponsiveBackground extends StatelessWidget {
-  final StatefulWidget child;
+  final Widget child;
   const ResponsiveBackground({super.key, required this.child});
 
   @override

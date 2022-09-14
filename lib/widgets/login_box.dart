@@ -1,3 +1,5 @@
+import 'package:app_fono/widgets/custom_button.dart';
+import 'package:app_fono/widgets/responsive_box.dart';
 import 'package:flutter/material.dart';
 
 class LoginBox extends StatefulWidget {
@@ -31,62 +33,61 @@ class _LoginBoxState extends State<LoginBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxWidth: 350),
-      width: MediaQuery.of(context).size.width / 2,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+    return ResponsiveBox(
+      children: [
+        const Text(
+          'Entre na sua',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 20,
+          ),
+        ),
+        Wrap(
+          children: const [
             Text(
-              'Entre na sua\nConta, Fono',
+              'Conta, ',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20,
               ),
             ),
-            Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(label: Text('CRF')),
-                    controller: crfController,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(label: Text('Email')),
-                    controller: emailController,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(label: Text('Senha')),
-                    controller: passwordController,
-                  ),
-                ],
+            Text(
+              'Fono',
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 20,
+                color: Color(0xFF449BC0),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                'Entrar',
-                style: TextStyle(fontWeight: FontWeight.w900),
-              ),
-              style: ElevatedButton.styleFrom(
-                  minimumSize: Size(175, 50),
-                  primary: Color(0xFF449BC0),
-                  onPrimary: Colors.white),
-            )
           ],
         ),
-      ),
+        Form(
+          key: formKey,
+          child: Column(
+            children: [
+              const SizedBox(height: 20,),
+              TextFormField(
+                decoration: InputDecoration(label: Text('CRF')),
+                controller: crfController,
+              ),
+              const SizedBox(height: 20,),
+              TextFormField(
+                decoration: InputDecoration(label: Text('Email')),
+                controller: emailController,
+              ),
+              const SizedBox(height: 20,),
+              TextFormField(
+                decoration: InputDecoration(label: Text('Senha')),
+                controller: passwordController,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20,),
+        CustomButton(
+          text: 'Entrar',
+          onPressed: () {}),
+      ],
     );
   }
 }
