@@ -19,8 +19,12 @@ class _LoginBoxState extends State<LoginBox> {
   late TextEditingController passwordController;
   late TextEditingController crfaController;
   final formKey = GlobalKey<FormState>();
+  final crfaKey = GlobalKey<FormFieldState>();
+  final emailKey = GlobalKey<FormFieldState>();
   final crfSize = 5;
-  FeedbackIcon feedbackIcon = new FeedbackIcon(false);
+  FeedbackIcon feedbackIconCrfa = new FeedbackIcon(null);
+  FeedbackIcon feedbackIconEmail = new FeedbackIcon(null);
+  bool isHiddenPassword = true;
 
   @override
   void initState() {
@@ -76,10 +80,19 @@ class _LoginBoxState extends State<LoginBox> {
                 height: 20,
               ),
               TextFormField(
+                onChanged: (value) {
+                  if (value.length==5) {
+                    feedbackIconCrfa = new FeedbackIcon(true);
+                  } else {
+                    feedbackIconCrfa = new FeedbackIcon(null);
+                  }
+                  setState(() {});
+                },
+                key: crfaKey,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   label: Text('CRFA'),
-                  suffixIcon: feedbackIcon,
+                  suffixIcon: feedbackIconCrfa,
                 ),
                 controller: crfaController,
                 validator: (value) {
@@ -101,9 +114,18 @@ class _LoginBoxState extends State<LoginBox> {
                 height: 20,
               ),
               TextFormField(
+                onChanged: (value) {
+                  if (EmailValidator.validate(value)) {
+                    feedbackIconEmail = new FeedbackIcon(true);
+                  } else {
+                    feedbackIconEmail = new FeedbackIcon(null);
+                  }
+                  setState(() {});
+                },
+                key: emailKey,
                 decoration: InputDecoration(
                   label: Text('Email'),
-                  suffixIcon: feedbackIcon,
+                  suffixIcon: feedbackIconEmail,
                 ),
                 controller: emailController,
                 validator: (value) {
@@ -120,8 +142,17 @@ class _LoginBoxState extends State<LoginBox> {
                 height: 20,
               ),
               TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(label: Text('Senha')),
+                obscureText: isHiddenPassword,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: InputDecoration(
+                  label: Text('Senha'),
+                  suffixIcon: InkWell(
+                    onTap: () {isHiddenPassword = !isHiddenPassword; setState(() {});},
+                    child: Icon(
+                      Icons.visibility,
+                    ),
+                  )
+                  ),
                 controller: passwordController,
               ),
             ],
@@ -133,11 +164,14 @@ class _LoginBoxState extends State<LoginBox> {
         CustomButton(
             text: 'Entrar',
             onPressed: () {
-              if (!formKey.currentState!.validate()) {
-                feedbackIcon = new FeedbackIcon(true);
-                setState(() {});
-              }
-              if (formKey.currentState!.validate()) {}
+              if (crfaKey.currentState!.validate()) 
+                {feedbackIconCrfa = new FeedbackIcon(true);}
+                 else {feedbackIconCrfa = new FeedbackIcon(false);}
+              if (emailKey.currentState!.validate())
+                {feedbackIconEmail = new FeedbackIcon(true);}
+                  else {feedbackIconEmail = new FeedbackIcon(false);}
+              setState(() {});
+              //if (formKey.currentState!.validate()) {}
             }),
       ],
     );
