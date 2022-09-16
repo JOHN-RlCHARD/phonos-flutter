@@ -11,13 +11,11 @@ class LoginFono extends StatefulWidget {
 }
 
 class _LoginFonoState extends State<LoginFono> {
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveBackground(
-        child: LoginBox(),
+        child: SingleChildScrollView(child: LoginBox()),
       ),
     );
   }

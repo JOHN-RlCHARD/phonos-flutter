@@ -1,3 +1,5 @@
+import 'package:app_fono/screens/fono_main.dart';
+import 'package:app_fono/screens/home.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/feedback_icon.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
@@ -23,6 +25,7 @@ class _LoginBoxState extends State<LoginBox> {
   FeedbackIcon feedbackIconCrfa = new FeedbackIcon(null);
   FeedbackIcon feedbackIconEmail = new FeedbackIcon(null);
   bool isHiddenPassword = true;
+  Icon passwordIcon = Icon(Icons.visibility_off);
 
   @override
   void initState() {
@@ -79,7 +82,7 @@ class _LoginBoxState extends State<LoginBox> {
               ),
               TextFormField(
                 onChanged: (value) {
-                  if (value.length==5) {
+                  if (value.length == 5) {
                     feedbackIconCrfa = new FeedbackIcon(true);
                   } else {
                     feedbackIconCrfa = new FeedbackIcon(null);
@@ -94,10 +97,14 @@ class _LoginBoxState extends State<LoginBox> {
                 ),
                 controller: crfaController,
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value!.isEmpty &&
+                      !EmailValidator.validate(
+                          emailController.text.toString())) {
                     return 'Campo em branco.';
                   } else if (RegExp(r'^[a-z A-Z]+$').hasMatch(value) ||
-                      value.length < crfSize) {
+                      value.length < crfSize &&
+                          !EmailValidator.validate(
+                              emailController.text.toString())) {
                     return 'Insira um CRF válido';
                   } else {
                     return null;
@@ -127,9 +134,10 @@ class _LoginBoxState extends State<LoginBox> {
                 ),
                 controller: emailController,
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value!.isEmpty && crfaController.text.length != 5) {
                     return 'Campo em branco.';
-                  } else if (!EmailValidator.validate(value)) {
+                  } else if (!EmailValidator.validate(value) &&
+                      crfaController.text.length != 5) {
                     return 'Insira um email válido';
                   } else {
                     return null;
@@ -143,14 +151,19 @@ class _LoginBoxState extends State<LoginBox> {
                 obscureText: isHiddenPassword,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  label: Text('Senha'),
-                  suffixIcon: InkWell(
-                    onTap: () {isHiddenPassword = !isHiddenPassword; setState(() {});},
-                    child: Icon(
-                      Icons.visibility,
-                    ),
-                  )
-                  ),
+                    label: Text('Senha'),
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        isHiddenPassword = !isHiddenPassword;
+                        if (isHiddenPassword) {
+                          passwordIcon = Icon(Icons.visibility_off);
+                        } else {
+                          passwordIcon = Icon(Icons.visibility);
+                        }
+                        setState(() {});
+                      },
+                      child: passwordIcon,
+                    )),
                 controller: passwordController,
               ),
             ],
@@ -162,16 +175,32 @@ class _LoginBoxState extends State<LoginBox> {
         CustomButton(
             text: 'Entrar',
             onPressed: () {
-              if (crfaKey.currentState!.validate()) 
-                {feedbackIconCrfa = new FeedbackIcon(true);}
-                 else {feedbackIconCrfa = new FeedbackIcon(false);}
-              if (emailKey.currentState!.validate())
-                {feedbackIconEmail = new FeedbackIcon(true);}
-                  else {feedbackIconEmail = new FeedbackIcon(false);}
+              if (crfaKey.currentState!.validate()) {
+                feedbackIconCrfa = new FeedbackIcon(true);
+              } else {
+                feedbackIconCrfa = new FeedbackIcon(false);
+              }
+              if (emailKey.currentState!.validate()) {
+                feedbackIconEmail = new FeedbackIcon(true);
+              } else {
+                feedbackIconEmail = new FeedbackIcon(false);
+              }
               setState(() {});
+              if (validateLogin())
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FonoMainPage()));
               //if (formKey.currentState!.validate()) {}
             }),
       ],
     );
+  }
+
+  bool validateLogin() {
+    if ((crfaController.text.toString() == '22222' ||
+            emailController.text.toString() == 'david@david.com') &&
+        passwordController.text.toString() == 'david') {
+      return true;
+    }
+    return false;
   }
 }
