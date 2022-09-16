@@ -49,9 +49,16 @@ class MyInputTheme {
         helperStyle: _buildTextStyle(Colors.cyan),
         hintStyle: _buildTextStyle(Colors.grey),
         labelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
-          final Color color = states.contains(MaterialState.error)
-              ? const Color(0xFFFF7A7A)
-              : Colors.black;
+          final Color color;
+          if (states.contains(MaterialState.error)) {
+            color=Color(0xFFFF7A7A);
+          } else if (states.contains(MaterialState.focused)) {
+            color=Color(0xFF449BC0);
+          } else if (states.contains(MaterialState.disabled)) {
+            color=Colors.grey[400]!;
+          } else {
+            color=Colors.black;
+          }
           return _buildTextStyle(color);
         }),
         prefixStyle: _buildTextStyle(Colors.black),

@@ -25,6 +25,8 @@ class _LoginBoxState extends State<LoginBox> {
   FeedbackIcon feedbackIconCrfa = new FeedbackIcon(null);
   FeedbackIcon feedbackIconEmail = new FeedbackIcon(null);
   bool isHiddenPassword = true;
+  bool enabledCrfa = true;
+  bool enabledEmail = true;
   Icon passwordIcon = Icon(Icons.visibility_off);
 
   @override
@@ -82,6 +84,13 @@ class _LoginBoxState extends State<LoginBox> {
               ),
               TextFormField(
                 onChanged: (value) {
+                  if (value.length==0) {
+                    enabledEmail = true;
+                    setState(() {});
+                  } else {
+                    enabledEmail = false;
+                    setState(() {});
+                  }
                   if (value.length == 5) {
                     feedbackIconCrfa = new FeedbackIcon(true);
                   } else {
@@ -89,6 +98,7 @@ class _LoginBoxState extends State<LoginBox> {
                   }
                   setState(() {});
                 },
+                enabled: enabledCrfa,
                 key: crfaKey,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -97,14 +107,10 @@ class _LoginBoxState extends State<LoginBox> {
                 ),
                 controller: crfaController,
                 validator: (value) {
-                  if (value!.isEmpty &&
-                      !EmailValidator.validate(
-                          emailController.text.toString())) {
+                  if (value!.isEmpty && enabledCrfa) {
                     return 'Campo em branco.';
                   } else if (RegExp(r'^[a-z A-Z]+$').hasMatch(value) ||
-                      value.length < crfSize &&
-                          !EmailValidator.validate(
-                              emailController.text.toString())) {
+                      value.length < crfSize && enabledCrfa) {
                     return 'Insira um CRF válido';
                   } else {
                     return null;
@@ -120,6 +126,13 @@ class _LoginBoxState extends State<LoginBox> {
               ),
               TextFormField(
                 onChanged: (value) {
+                  if (value.length==0) {
+                    enabledCrfa = true;
+                    setState(() {});
+                  } else {
+                    enabledCrfa = false;
+                    setState(() {});
+                  }
                   if (EmailValidator.validate(value)) {
                     feedbackIconEmail = new FeedbackIcon(true);
                   } else {
@@ -127,6 +140,7 @@ class _LoginBoxState extends State<LoginBox> {
                   }
                   setState(() {});
                 },
+                enabled: enabledEmail,
                 key: emailKey,
                 decoration: InputDecoration(
                   label: Text('Email'),
@@ -134,10 +148,10 @@ class _LoginBoxState extends State<LoginBox> {
                 ),
                 controller: emailController,
                 validator: (value) {
-                  if (value!.isEmpty && crfaController.text.length != 5) {
+                  if (value!.isEmpty && enabledEmail) {
                     return 'Campo em branco.';
                   } else if (!EmailValidator.validate(value) &&
-                      crfaController.text.length != 5) {
+                      enabledEmail) {
                     return 'Insira um email válido';
                   } else {
                     return null;
@@ -175,14 +189,14 @@ class _LoginBoxState extends State<LoginBox> {
         CustomButton(
             text: 'Entrar',
             onPressed: () {
-              if (crfaKey.currentState!.validate()) {
+              if (crfaKey.currentState!.validate() && enabledCrfa) {
                 feedbackIconCrfa = new FeedbackIcon(true);
-              } else {
+              } else if (!crfaKey.currentState!.validate() && enabledCrfa){
                 feedbackIconCrfa = new FeedbackIcon(false);
               }
-              if (emailKey.currentState!.validate()) {
+              if (emailKey.currentState!.validate() && enabledEmail) {
                 feedbackIconEmail = new FeedbackIcon(true);
-              } else {
+              } else if (!emailKey.currentState!.validate() && enabledEmail) {
                 feedbackIconEmail = new FeedbackIcon(false);
               }
               setState(() {});
