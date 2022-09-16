@@ -9,7 +9,7 @@ class ResponsiveBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(maxWidth: 350),
-      width: MediaQuery.of(context).size.width / 2,
+      padding: EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(20)),

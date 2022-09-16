@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/feedback_icon.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
