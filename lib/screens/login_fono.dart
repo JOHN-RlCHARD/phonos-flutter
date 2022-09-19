@@ -1,6 +1,5 @@
 import 'package:app_fono/widgets/login_box.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
-import 'package:app_fono/widgets/responsive_box.dart';
 import 'package:flutter/material.dart';
 
 class LoginFono extends StatefulWidget {
