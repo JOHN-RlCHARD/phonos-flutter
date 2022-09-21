@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   google_fonts: ^3.0.1
   email_validator: ^2.1.17
+  flutter_svg: ^1.1.5
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,6 +68,9 @@ flutter:
     - assets/rectangle_topleft.png
     - assets/rectangle_bottomright.png
     - assets/lines.png
+    - assets/person_icon.svg
+    - assets/pacientes_icon.svg
+    - assets/calendar_icon.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
