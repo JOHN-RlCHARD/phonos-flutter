@@ -1,3 +1,4 @@
+import 'package:app_fono/classes/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../widgets/infos_card.dart';
@@ -97,61 +98,6 @@ class DashBoardCenter extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class InfosCardBox extends StatelessWidget {
-  const InfosCardBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 15,
-      runSpacing: 15,
-      alignment: WrapAlignment.center,
-      children: [
-        Wrap(
-          spacing: 15,
-          runSpacing: 15,
-          children: [
-            InfosCard(
-              backgroundColor: Color(0xFFFADBE2),
-              iconColor: Color(0xFFFF698D),
-              label: 'Pacientes:',
-              value: '35',
-              svgIconPath: 'assets/pacientes_icon.svg',
-            ),
-            InfosCard(
-              backgroundColor: Color(0xFFDBE2FA),
-              iconColor: Color(0xFF86A2FF),
-              label: 'Consultas:',
-              value: '11',
-              svgIconPath: 'assets/calendar_icon.svg',
-            ),
-          ],
-        ),
-        Wrap(
-          spacing: 15,
-          runSpacing: 15,
-          children: [
-            InfosCard(
-              backgroundColor: Color(0xFFFAEFDB),
-              iconColor: Color(0xFFFFD280),
-              label: 'Pacientes:',
-              value: '35',
-              svgIconPath: 'assets/pacientes_icon.svg',
-            ),
-            InfosCard(
-              backgroundColor: Color(0xFFDCFADB),
-              iconColor: Color(0xFF76E072),
-              label: 'Pacientes:',
-              value: '35',
-              svgIconPath: 'assets/pacientes_icon.svg',
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
