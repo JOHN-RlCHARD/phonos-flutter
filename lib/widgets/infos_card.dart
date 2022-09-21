@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InfosCard extends StatelessWidget {
-  const InfosCard({super.key, required this.backgroundColor, required this.iconColor, required this.label, required this.value, required this.svgIconPath});
+  const InfosCard(
+      {super.key,
+      required this.backgroundColor,
+      required this.iconColor,
+      required this.label,
+      required this.value,
+      required this.svgIconPath});
   final Color backgroundColor;
   final Color iconColor;
   final String svgIconPath;
@@ -15,19 +21,19 @@ class InfosCard extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: 80,
-      width: MediaQuery.of(context).size.width/6,
+      width: double.infinity,
       constraints: BoxConstraints(
         minWidth: 120,
-        maxWidth: 150,
+        maxWidth: 160,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),
         color: backgroundColor,
       ),
       child: Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        spacing: 15,
-       // mainAxisAlignment: MainAxisAlignment.center,
+        alignment: WrapAlignment.spaceAround,
+        spacing: 10,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             height: 40,

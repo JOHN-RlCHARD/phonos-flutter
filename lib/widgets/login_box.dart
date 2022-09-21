@@ -1,5 +1,5 @@
 import 'package:app_fono/screens/create_account.dart';
-import 'package:app_fono/screens/fono_main.dart';
+import 'package:app_fono/screens/fono_dashboard/fono_main.dart';
 import 'package:app_fono/screens/home.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/feedback_icon.dart';
