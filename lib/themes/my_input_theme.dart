@@ -26,50 +26,54 @@ class MyInputTheme {
           borderRadius: BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(
             color: Color(0xFFFF3838),
-            width: 1,),
+            width: 1,
           ),
+        ),
         errorBorder: _buildBorder(Color(0xFFFF7A7A)),
         focusedBorder: _buildBorder(Color(0xFF449BC0)),
         border: _buildBorder(Colors.yellow),
         disabledBorder: _buildBorder(Colors.grey[400]!),
         suffixStyle: _buildTextStyle(Colors.black),
         counterStyle: _buildTextStyle(Colors.black),
-        floatingLabelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+        floatingLabelStyle:
+            MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
           final Color color;
           if (states.contains(MaterialState.error)) {
-            color=Color(0xFFFF7A7A);
+            color = Color(0xFFFF7A7A);
           } else if (states.contains(MaterialState.focused)) {
-            color=Color(0xFF449BC0);
+            color = Color(0xFF449BC0);
           } else {
-            color=Colors.black;
+            color = Colors.black;
           }
           return _buildTextStyle(color);
         }),
         errorStyle: _buildTextStyle(Color(0xFFFF7A7A)),
         helperStyle: _buildTextStyle(Colors.cyan),
         hintStyle: _buildTextStyle(Colors.grey),
-        labelStyle: MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+        labelStyle:
+            MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
           final Color color;
           if (states.contains(MaterialState.error)) {
-            color=Color(0xFFFF7A7A);
+            color = Color(0xFFFF7A7A);
           } else if (states.contains(MaterialState.focused)) {
-            color=Color(0xFF449BC0);
+            color = Color(0xFF449BC0);
           } else if (states.contains(MaterialState.disabled)) {
-            color=Colors.grey[400]!;
+            color = Colors.grey[400]!;
           } else {
-            color=Colors.black;
+            color = Colors.black;
           }
           return _buildTextStyle(color);
         }),
         prefixStyle: _buildTextStyle(Colors.black),
-        suffixIconColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
+        suffixIconColor:
+            MaterialStateColor.resolveWith((Set<MaterialState> states) {
           final Color color;
           if (states.contains(MaterialState.error)) {
-            color=Color(0xFFFF7A7A);
+            color = Color(0xFFFF7A7A);
           } else if (states.contains(MaterialState.focused)) {
-            color=Color(0xFF449BC0);
+            color = Color(0xFF449BC0);
           } else {
-            color=Colors.black;
+            color = Colors.black;
           }
           return color;
         }),
