@@ -50,7 +50,6 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: Icon(Icons.list),
       backgroundColor: Color(0xFFDBEFFA),
       shadowColor: Colors.black12,
       flexibleSpace: Row(

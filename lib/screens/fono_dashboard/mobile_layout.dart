@@ -1,3 +1,4 @@
+import 'package:app_fono/widgets/calendar.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/infos_card.dart';
@@ -35,6 +36,7 @@ class MobileDashboard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  Calendar(),
                   Container(
                     height: 300,
                     width: double.infinity,

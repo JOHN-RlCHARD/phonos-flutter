@@ -1,4 +1,6 @@
+import 'package:app_fono/widgets/calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class DashBoardCalendar extends StatelessWidget {
   const DashBoardCalendar({super.key});
@@ -28,6 +30,10 @@ class DashBoardCalendar extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Calendar(),
           ],
         ),
       ),
