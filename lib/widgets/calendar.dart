@@ -79,8 +79,7 @@ class _CalendarState extends State<Calendar> {
         SizedBox(
           height: 12,
         ),
-        Container(
-          height: 250,
+        Expanded(
           child: SingleChildScrollView(
             child: Column(
               children: [

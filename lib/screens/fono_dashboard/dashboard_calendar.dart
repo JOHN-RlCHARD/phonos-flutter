@@ -33,7 +33,7 @@ class DashBoardCalendar extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Calendar(),
+            Expanded(child: Calendar()),
           ],
         ),
       ),

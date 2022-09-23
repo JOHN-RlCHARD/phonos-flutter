@@ -27,7 +27,6 @@ class MobileDashboard extends StatelessWidget {
                 color: Color(0xFFDBEFFA),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Calendário',
@@ -39,13 +38,9 @@ class MobileDashboard extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  Calendar(),
-                  // Container(
-                  //   height: 300,
-                  //   width: double.infinity,
-                  // ),
-                  SizedBox(
-                    height: 12,
+                  Container(
+                    height: 600,
+                    child: Calendar(),
                   ),
                 ],
               ),
