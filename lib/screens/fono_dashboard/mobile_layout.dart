@@ -36,10 +36,16 @@ class MobileDashboard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(
+                    height: 12,
+                  ),
                   Calendar(),
-                  Container(
-                    height: 300,
-                    width: double.infinity,
+                  // Container(
+                  //   height: 300,
+                  //   width: double.infinity,
+                  // ),
+                  SizedBox(
+                    height: 12,
                   ),
                 ],
               ),

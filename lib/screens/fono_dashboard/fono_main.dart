@@ -58,8 +58,9 @@ class CustomAppBar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
+              alignment: Alignment.bottomLeft,
               child: CircleAvatar(
-                radius: 25,
+                radius: 20,
                 backgroundColor: Colors.white,
                 child: SvgPicture.asset(
                   'assets/person_icon.svg',
