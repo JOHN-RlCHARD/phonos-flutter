@@ -1,4 +1,3 @@
-import 'package:app_fono/screens/create_account.dart';
 import 'package:app_fono/screens/fono_dashboard/fono_main.dart';
 import 'package:app_fono/screens/home.dart';
 import 'package:app_fono/widgets/custom_button.dart';
@@ -221,10 +220,7 @@ class _LoginBoxState extends State<LoginBox> {
               height: 16,
               child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CreateAccount()));
+                    
                   },
                   child: const Text(
                     'Crie agora.',
