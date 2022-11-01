@@ -72,7 +72,7 @@ class ResponsiveBackground extends StatelessWidget {
             bottom: 0,
             right: 0,
           ),
-          Center(
+          Container(
             child: child,
           ),
         ],
