@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyInputTheme {
   OutlineInputBorder _buildBorder(Color color) {
     return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(Radius.circular(8)),
+      borderRadius: const BorderRadius.all(Radius.circular(10)),
       borderSide: BorderSide(
         color: color,
         width: 0.7,
@@ -49,7 +49,7 @@ class MyInputTheme {
         }),
         errorStyle: _buildTextStyle(Color(0xFFFF7A7A)),
         helperStyle: _buildTextStyle(Colors.cyan),
-        hintStyle: _buildTextStyle(Colors.grey),
+        hintStyle: _buildTextStyle(Colors.black54),
         labelStyle:
             MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
           final Color color;

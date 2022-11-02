@@ -1,10 +1,11 @@
-import 'package:app_fono/screens/games.dart';
+import 'package:app_fono/screens/games/games_mobile.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/appbar.dart';
+import 'games/games.dart';
 
 class HomePaciente extends StatelessWidget {
   const HomePaciente({super.key});

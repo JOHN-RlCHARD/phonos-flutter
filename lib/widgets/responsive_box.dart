@@ -10,7 +10,7 @@ class ResponsiveBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 350),
+      //constraints: BoxConstraints(maxWidth: 350),
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         boxShadow: [
@@ -35,12 +35,12 @@ class ResponsiveBox extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(30, 10, 30, 20),
         child: Container(
-          constraints: BoxConstraints(maxWidth: 200),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+          // constraints: BoxConstraints(maxWidth: 1100),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            direction: Axis.vertical,
             children: children,
-          ),
+          )
         ),
       ),
     );
