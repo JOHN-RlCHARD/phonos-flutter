@@ -80,6 +80,9 @@ flutter:
     - assets/kawaii_polar.png
     - assets/fono_profile.jpg
     - assets/phonos_logo.svg
+    - assets/gold_medal.svg
+    - assets/bronze_medal.svg
+    - assets/silver_medal.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

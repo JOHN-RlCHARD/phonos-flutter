@@ -1,4 +1,5 @@
 import 'package:app_fono/screens/games/games_mobile.dart';
+import 'package:app_fono/screens/profile.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
@@ -41,7 +42,7 @@ class HomePaciente extends StatelessWidget {
               CustomButton(
                 text: 'Meu Perfil',
                 onPressed: () {
-                  //@TODO
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ProfileScreen())));
                 }
               ),
               const SizedBox(height: 20,),
