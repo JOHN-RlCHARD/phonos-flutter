@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Open Sans'),
-        inputDecorationTheme: MyInputTheme().theme(),
+        //inputDecorationTheme: MyInputTheme().theme(),
       ),
       home: HomePage(),
     );

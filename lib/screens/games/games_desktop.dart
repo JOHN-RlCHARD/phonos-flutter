@@ -25,8 +25,11 @@ class _GamesDesktopState extends State<GamesDesktop> {
             color1: Color(0xFFDBEFFA),
             color2: Colors.white,
             children: [
+              SizedBox(
+                height: 15,
+              ),
               CircleAvatar(
-                radius: 50,
+                radius: 40,
                 backgroundColor: Colors.white,
                 backgroundImage: AssetImage(
                   'assets/fono_profile.jpg',

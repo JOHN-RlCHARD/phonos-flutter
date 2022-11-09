@@ -31,44 +31,53 @@ class HomePaciente extends StatelessWidget {
                   'assets/fono_profile.jpg',
                 ),
               ),
-
               Text(
                 'Nome',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-
-              const SizedBox(height: 20,),
-
-              CustomButton(
-                text: 'Meu Perfil',
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: ((context) => ProfileScreen())));
-                }
+              const SizedBox(
+                height: 20,
               ),
-              const SizedBox(height: 20,),
               CustomButton(
-                text: 'Jogos',
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: ((context) => Games())));
-                }
+                  text: 'Meu Perfil',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => ProfileScreen())));
+                  }),
+              const SizedBox(
+                height: 20,
               ),
-              const SizedBox(height: 20,),
               CustomButton(
-                text: 'Consultas',
-                onPressed: () {
-                  //@TODO
-                }
+                  text: 'Jogos',
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => Games())));
+                  }),
+              const SizedBox(
+                height: 20,
               ),
-
-              const SizedBox(height: 20,),
-
+              CustomButton(
+                  text: 'Consultas',
+                  onPressed: () {
+                    //@TODO
+                  }),
+              const SizedBox(
+                height: 20,
+              ),
               TextButton(
                 onPressed: () {},
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    Icon(Icons.exit_to_app, color: Colors.black,),
-                    SizedBox(width: 5,),
+                    Icon(
+                      Icons.exit_to_app,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Text(
                       'Sair',
                       style: TextStyle(
@@ -79,7 +88,6 @@ class HomePaciente extends StatelessWidget {
                   ],
                 ),
               )
-
             ],
           ),
         ),

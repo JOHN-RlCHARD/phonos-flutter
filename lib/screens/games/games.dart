@@ -15,9 +15,7 @@ class Games extends StatelessWidget {
         preferredSize: Size.fromHeight(56),
         child: MyAppBar(),
       ),
-      body: (Responsive.isMobile(context))
-      ? GamesMobile()
-      : GamesDesktop(),
+      body: GamesDesktop(),
     );
   }
 }
