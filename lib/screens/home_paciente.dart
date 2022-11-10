@@ -21,8 +21,6 @@ class HomePaciente extends StatelessWidget {
       body: ResponsiveBackground(
         child: Center(
           child: ResponsiveBox(
-            color1: Color(0xFFDBEFFA),
-            color2: Colors.white,
             children: [
               CircleAvatar(
                 radius: 40,

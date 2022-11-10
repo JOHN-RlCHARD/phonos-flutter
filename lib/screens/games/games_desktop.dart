@@ -22,8 +22,6 @@ class _GamesDesktopState extends State<GamesDesktop> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
           child: ResponsiveBox(
-            color1: Color(0xFFDBEFFA),
-            color2: Colors.white,
             children: [
               SizedBox(
                 height: 15,

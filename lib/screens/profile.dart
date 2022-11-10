@@ -18,8 +18,6 @@ class ProfileScreen extends StatelessWidget {
       body: ResponsiveBackground(
         child: Center(
           child: ResponsiveBox(
-            color1: Color(0xFFDBEFFA),
-            color2: Colors.white,
             children: [
               CircleAvatar(
                 radius: 40,
@@ -150,9 +148,6 @@ class ProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
                     fontSize: 23),
-              ),
-              SizedBox(
-                height: 20,
               ),
             ],
           ),

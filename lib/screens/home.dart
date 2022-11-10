@@ -1,3 +1,4 @@
+import 'package:app_fono/screens/create_password.dart';
 import 'package:app_fono/screens/home_paciente.dart';
 import 'package:app_fono/widgets/appbar.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
@@ -42,11 +43,9 @@ class _HomePageState extends State<HomePage> {
       body: ResponsiveBackground(
         child: Center(
           child: ResponsiveBox(
-            color1: Colors.white,
-            color2: Colors.white,
             children: [
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Text(
                 'Entre com seu Token',
@@ -166,7 +165,7 @@ class _HomePageState extends State<HomePage> {
               ),
 
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               CustomButton(
                 text: 'Entrar',
@@ -174,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: ((context) => HomePaciente())));
+                          builder: ((context) => CreatePassword())));
                 },
               ),
               //SizedBox(height: 20,),
