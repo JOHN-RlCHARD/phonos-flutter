@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late TextEditingController txt1, txt2, txt3, txt4, txt5;
   late FocusNode focus1, focus2, focus3, focus4, focus5;
+  String token = "";
 
   @override
   void initState() {
@@ -31,6 +32,16 @@ class _HomePageState extends State<HomePage> {
     focus3 = new FocusNode();
     focus4 = new FocusNode();
     focus5 = new FocusNode();
+  }
+
+  void getToken() {
+    setState(() {
+      token = txt1.text.toString() +
+          txt2.text.toString() +
+          txt3.text.toString() +
+          txt4.text.toString() +
+          txt5.text.toString();
+    });
   }
 
   @override
@@ -151,6 +162,7 @@ class _HomePageState extends State<HomePage> {
                         maxLength: 1,
                         inputFormatters: [UpperCaseTextFormatter()],
                         onChanged: (value) {
+                          getToken();
                           if (value.length == 0)
                             FocusScope.of(context).requestFocus(focus4);
                         },
@@ -169,12 +181,14 @@ class _HomePageState extends State<HomePage> {
               ),
               CustomButton(
                 text: 'Entrar',
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => CreatePassword())));
-                },
+                onPressed: (token.length != 5)
+                    ? null
+                    : () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => CreatePassword())));
+                      },
               ),
               //SizedBox(height: 20,),
             ],
