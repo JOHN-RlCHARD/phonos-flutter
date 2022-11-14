@@ -16,6 +16,7 @@ class CreatePassword extends StatefulWidget {
 
 class _CreatePasswordState extends State<CreatePassword> {
   late String password = "";
+  late String password2 = "";
   double strength = 0;
   bool isObscure = true;
   bool isObscure2 = true;
@@ -29,6 +30,7 @@ class _CreatePasswordState extends State<CreatePassword> {
 
   void checkPassword(String value) {
     password = value.trim();
+    checkPassword2(password2);
 
     if (password.isEmpty) {
       setState(() {
@@ -60,7 +62,7 @@ class _CreatePasswordState extends State<CreatePassword> {
   }
 
   void checkPassword2(String value) {
-    String password2 = value.trim();
+    password2 = value.trim();
 
     setState(() {
       if (password2.isEmpty) {

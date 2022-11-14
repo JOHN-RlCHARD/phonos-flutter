@@ -20,7 +20,7 @@ class _GamesDesktopState extends State<GamesDesktop> {
         child: SingleChildScrollView(
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: ResponsiveBox(
             children: [
               SizedBox(

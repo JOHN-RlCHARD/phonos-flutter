@@ -1,3 +1,4 @@
+import 'package:app_fono/screens/consultas.dart';
 import 'package:app_fono/screens/games/games_mobile.dart';
 import 'package:app_fono/screens/profile.dart';
 import 'package:app_fono/widgets/custom_button.dart';
@@ -59,7 +60,8 @@ class HomePaciente extends StatelessWidget {
               CustomButton(
                   text: 'Consultas',
                   onPressed: () {
-                    //@TODO
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: ((context) => Consultas())));
                   }),
               const SizedBox(
                 height: 20,
