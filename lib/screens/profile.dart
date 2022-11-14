@@ -144,6 +144,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               Text(
                 'Total de jogos completos: 17',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,

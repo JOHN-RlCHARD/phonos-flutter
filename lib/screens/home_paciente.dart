@@ -1,5 +1,5 @@
 import 'package:app_fono/screens/consultas.dart';
-import 'package:app_fono/screens/games/games_mobile.dart';
+import 'package:app_fono/screens/home.dart';
 import 'package:app_fono/screens/profile.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
@@ -7,7 +7,7 @@ import 'package:app_fono/widgets/responsive_box.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/appbar.dart';
-import 'games/games.dart';
+import 'games.dart';
 
 class HomePaciente extends StatelessWidget {
   const HomePaciente({super.key});
@@ -67,7 +67,12 @@ class HomePaciente extends StatelessWidget {
                 height: 20,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (builder) => HomePage()),
+                    (route) => false,
+                  );
+                },
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [

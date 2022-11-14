@@ -85,164 +85,167 @@ class _CreatePasswordState extends State<CreatePassword> {
       ),
       body: ResponsiveBackground(
         child: Center(
-          child: ResponsiveBox(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Olá, ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    "Fulano",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF449BC0),
-                      fontWeight: FontWeight.w800,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                "Cadastre sua senha!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Form(
-                child: Column(
+          child: SingleChildScrollView(
+            child: ResponsiveBox(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 250),
-                      child: TextFormField(
-                        onChanged: ((value) => checkPassword(value)),
-                        obscureText: isObscure,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(isObscure
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                isObscure = !isObscure;
-                              });
-                            },
-                          ),
-                          hintText: 'Senha',
-                        ),
+                    Text(
+                      "Olá, ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
                       ),
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 250),
-                      child: TextFormField(
-                        onChanged: (value) => checkPassword2(value),
-                        obscureText: isObscure2,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(isObscure2
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                isObscure2 = !isObscure2;
-                              });
-                            },
-                          ),
-                          hintText: 'Repita sua senha',
-                        ),
+                    Text(
+                      "Fulano",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF449BC0),
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
                       ),
                     ),
-
-                    SizedBox(
-                      height: 10,
-                    ),
-
-                    Container(
-                      height: 18,
-                      constraints: BoxConstraints(maxWidth: 250),
-                      child: (isCorresponding != 1)
-                          ? null
-                          : Text(
-                              correspondingText,
-                              style: TextStyle(color: Colors.red, fontSize: 13),
-                            ),
-                    ),
-
-                    SizedBox(
-                      height: strength == 0 ? null : 10,
-                    ),
-
-                    //PASSWORD STRENGTH INDICATOR
-                    // ConstrainedBox(
-                    //   constraints: BoxConstraints(maxWidth: 250),
-                    //   child: (strength == 0)
-                    //       ? null
-                    //       : LinearProgressIndicator(
-                    //           color: strength == 1 / 4
-                    //               ? Colors.red
-                    //               : strength == 2 / 4
-                    //                   ? Colors.yellow
-                    //                   : strength == 3 / 4
-                    //                       ? Colors.blue
-                    //                       : Colors.green,
-                    //           value: strength,
-                    //           backgroundColor: Colors.grey.withOpacity(0.5),
-                    //         ),
-                    // ),
-                    Container(
-                      constraints: BoxConstraints(maxWidth: 250),
-                      child: strength == 0
-                          ? null
-                          : FlutterPasswordStrength(password: password),
-                    ),
-                    SizedBox(
-                      height: strength == 0 ? null : 10,
-                    ),
-                    //PASSWORD STRENGTH TEXT
-                    Container(
-                      constraints: BoxConstraints(maxWidth: 250),
-                      child: (strength == 0)
-                          ? null
-                          : Text(
-                              text,
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomButton(
-                        text: "Enviar",
-                        onPressed: (strength < 2 / 4 || isCorresponding < 2)
-                            ? null
-                            : () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) =>
-                                            HomePaciente())));
-                              }),
                   ],
                 ),
-              ),
-            ],
+                Text(
+                  "Cadastre sua senha!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Form(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 250),
+                        child: TextFormField(
+                          onChanged: ((value) => checkPassword(value)),
+                          obscureText: isObscure,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(isObscure
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () {
+                                setState(() {
+                                  isObscure = !isObscure;
+                                });
+                              },
+                            ),
+                            hintText: 'Senha',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 250),
+                        child: TextFormField(
+                          onChanged: (value) => checkPassword2(value),
+                          obscureText: isObscure2,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(isObscure2
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
+                              onPressed: () {
+                                setState(() {
+                                  isObscure2 = !isObscure2;
+                                });
+                              },
+                            ),
+                            hintText: 'Repita sua senha',
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      Container(
+                        height: 18,
+                        constraints: BoxConstraints(maxWidth: 250),
+                        child: (isCorresponding != 1)
+                            ? null
+                            : Text(
+                                correspondingText,
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 13),
+                              ),
+                      ),
+
+                      SizedBox(
+                        height: strength == 0 ? null : 10,
+                      ),
+
+                      //PASSWORD STRENGTH INDICATOR
+                      // ConstrainedBox(
+                      //   constraints: BoxConstraints(maxWidth: 250),
+                      //   child: (strength == 0)
+                      //       ? null
+                      //       : LinearProgressIndicator(
+                      //           color: strength == 1 / 4
+                      //               ? Colors.red
+                      //               : strength == 2 / 4
+                      //                   ? Colors.yellow
+                      //                   : strength == 3 / 4
+                      //                       ? Colors.blue
+                      //                       : Colors.green,
+                      //           value: strength,
+                      //           backgroundColor: Colors.grey.withOpacity(0.5),
+                      //         ),
+                      // ),
+                      Container(
+                        constraints: BoxConstraints(maxWidth: 250),
+                        child: strength == 0
+                            ? null
+                            : FlutterPasswordStrength(password: password),
+                      ),
+                      SizedBox(
+                        height: strength == 0 ? null : 10,
+                      ),
+                      //PASSWORD STRENGTH TEXT
+                      Container(
+                        constraints: BoxConstraints(maxWidth: 250),
+                        child: (strength == 0)
+                            ? null
+                            : Text(
+                                text,
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                      ),
+
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(
+                          text: "Enviar",
+                          onPressed: (strength < 2 / 4 || isCorresponding < 2)
+                              ? null
+                              : () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              HomePaciente())));
+                                }),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
