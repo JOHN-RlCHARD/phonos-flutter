@@ -10,7 +10,9 @@ import '../widgets/appbar.dart';
 import 'games.dart';
 
 class HomePaciente extends StatelessWidget {
-  const HomePaciente({super.key});
+  final String avatar;
+
+  const HomePaciente({super.key, required this.avatar});
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +25,22 @@ class HomePaciente extends StatelessWidget {
         child: Center(
           child: ResponsiveBox(
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage(
-                  'assets/fono_profile.jpg',
-                ),
+              Container(
+                width: 80,
+                child: Image(image: AssetImage(avatar,),)
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Text(
-                'Nome',
+                'Fulaninho',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               const SizedBox(
                 height: 20,
               ),
               CustomButton(
+                  icon: Icon(Icons.person),
                   text: 'Meu Perfil',
                   onPressed: () {
                     Navigator.push(
@@ -49,6 +52,7 @@ class HomePaciente extends StatelessWidget {
                 height: 20,
               ),
               CustomButton(
+                  icon: Icon(Icons.sports_esports),
                   text: 'Jogos',
                   onPressed: () {
                     Navigator.push(context,
@@ -58,6 +62,7 @@ class HomePaciente extends StatelessWidget {
                 height: 20,
               ),
               CustomButton(
+                  icon: Icon(Icons.calendar_month),
                   text: 'Consultas',
                   onPressed: () {
                     Navigator.push(context,

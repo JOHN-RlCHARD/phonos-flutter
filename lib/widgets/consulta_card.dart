@@ -33,59 +33,75 @@ class _ConsultaCardState extends State<ConsultaCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      width: 250,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(7)),
-          gradient: LinearGradient(
-            colors: [Color(0xFF449BC0), Colors.white],
-            stops: [0.03, 0.03],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 0,
-              blurRadius: 10,
-              offset: Offset(0, 4),
-            ),
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              widget.date,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            Container(
+              height: 100,
+              width: 10,
+              decoration: BoxDecoration(
+                color: Color(0xFF449BC0),
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(7)),
+              ),
             ),
-            Text(
-              widget.time,
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              widget.mode,
-              style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF449BC0)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  widget.status,
-                  style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800, color: color),
+            Container(
+              alignment: Alignment.topLeft,
+              constraints: BoxConstraints(minWidth: 220, maxWidth: 400),
+              width: MediaQuery.of(context).size.width/2,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.horizontal(right: Radius.circular(7)),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 0,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ]),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.date,
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      widget.time,
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      widget.mode,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF449BC0)),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          widget.status,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w800, color: color),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ],
         ),
-      ),
+        SizedBox(height: 12,),
+      ],
     );
   }
 }

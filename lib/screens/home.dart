@@ -56,19 +56,59 @@ class _HomePageState extends State<HomePage> {
           child: ResponsiveBox(
             children: [
               SizedBox(
-                height: 20,
+                height: 10,
               ),
-              Text(
-                'Entre com seu Token',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              Wrap(
+                alignment: WrapAlignment.end,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                verticalDirection: VerticalDirection.up,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Wrap(
+                        children: [
+                          Text(
+                            'Bem vindo ao ',
+                            style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            'Phonos!',
+                            style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 20,
+                            color: Color(0xFF449BC0),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'Entre com seu Token',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                          ),
+                          Container(
+                            constraints: BoxConstraints(maxWidth: 200, minWidth: 100),
+                            width: 200,
+                            child: Image(
+                              image: AssetImage('assets/dog_login.png'),
+                            ),
+                          ),
+                        ],
+                      ),
+              
 
               Container(
                 width: 250,

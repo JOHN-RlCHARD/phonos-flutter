@@ -39,6 +39,7 @@ dependencies:
   webview_flutter: ^3.0.4
   carousel_slider: ^4.1.1
   flutter_password_strength: ^0.1.6
+  mongo_dart: ^0.7.4+1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -84,6 +85,11 @@ flutter:
     - assets/gold_medal.svg
     - assets/bronze_medal.svg
     - assets/silver_medal.svg
+    - assets/pixel_dog_1.png
+    - assets/dog_login.png
+    - assets/avatar_dog.png
+    - assets/avatar_coruja.png
+    - assets/avatar_morcego.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

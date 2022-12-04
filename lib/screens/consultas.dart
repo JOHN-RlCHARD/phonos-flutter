@@ -56,31 +56,32 @@ class Consultas extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width / 1.7,
-                      height: 40,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            FilterButton(text: 'Cancelado'),
-                            FilterButton(text: 'Finalizado'),
-                            FilterButton(text: 'Esse mes'),
-                            FilterButton(text: 'Mes Passado'),
-                            FilterButton(text: 'Filtros'),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   width: MediaQuery.of(context).size.width / 1.7,
+                    //   height: 40,
+                    //   child: SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     child: Row(
+                    //       children: [
+                    //         FilterButton(text: 'Cancelado'),
+                    //         FilterButton(text: 'Finalizado'),
+                    //         FilterButton(text: 'Esse mes'),
+                    //         FilterButton(text: 'Mes Passado'),
+                    //         FilterButton(text: 'Filtros'),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 15,
                     ),
-                    Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 15,
-                      runSpacing: 15,
-                      alignment: WrapAlignment.center,
+                    Column(
+                      // direction: Axis.horizontal,
+                      // spacing: 15,
+                      // runSpacing: 15,
+                      // alignment: WrapAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         ConsultaCard(
                           date: "3 de Agosto de 2022(Qua)",

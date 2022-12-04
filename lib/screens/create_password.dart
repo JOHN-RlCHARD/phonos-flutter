@@ -1,3 +1,4 @@
+import 'package:app_fono/screens/choose_avatar.dart';
 import 'package:app_fono/screens/home_paciente.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
@@ -88,12 +89,12 @@ class _CreatePasswordState extends State<CreatePassword> {
           child: SingleChildScrollView(
             child: ResponsiveBox(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Text(
-                      "Olá, ",
+                      "Olá, responsável de ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
@@ -101,7 +102,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                       ),
                     ),
                     Text(
-                      "Fulano",
+                      "Fulaninho.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF449BC0),
@@ -112,11 +113,11 @@ class _CreatePasswordState extends State<CreatePassword> {
                   ],
                 ),
                 Text(
-                  "Cadastre sua senha!",
+                  "Como esse é seu primeiro login,\ndeverá cadastrar uma senha.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
                   ),
                 ),
                 SizedBox(
@@ -239,7 +240,9 @@ class _CreatePasswordState extends State<CreatePassword> {
                                       context,
                                       MaterialPageRoute(
                                           builder: ((context) =>
-                                              HomePaciente())));
+                                              //HomePaciente()
+                                              ChooseAvatar()
+                                              )));
                                 }),
                     ],
                   ),
