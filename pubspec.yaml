@@ -91,6 +91,8 @@ flutter:
     - assets/avatar_dog.png
     - assets/avatar_coruja.png
     - assets/avatar_morcego.png
+    - assets/splash_wordhunt.png
+    - assets/splash_forca.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

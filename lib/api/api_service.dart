@@ -20,15 +20,21 @@ class ApiService {
 
   }
 
-  Future<Paciente> getPaciente(String userToken) async {
+  Future<Paciente?> getPacienteByToken(String userToken) async {
     final pacienteUri = Uri.parse('$url/pacientes/${userToken}');
     final res = await http.get(pacienteUri);
 
-    
-    final data = jsonDecode(res.body);
-    Paciente paciente = data.map((value)=>Paciente.fromMap(value));
-    return paciente;
-    
+    if (res.statusCode == 200) {
+      final data = jsonDecode(res.body);
+      var pacientes = List<Paciente>.from(data.map((cat)=>Paciente.fromMap(cat)));
+      if (!pacientes.isEmpty) {
+        Paciente paciente = pacientes[0];
+        return paciente;
+      } else return null;
+    } else {
+      return null;
+    }
+
   }
 
   Future putFirstLogin(String userToken, String password) async {

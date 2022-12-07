@@ -232,16 +232,17 @@ class _HomePageState extends State<HomePage> {
                         // context,
                         // MaterialPageRoute(
                         //     builder: ((context) => Test())));
-                        List<Paciente> pacientes = await ApiService().getPacientes(); 
-                        bool isValidToken = false;
-                        Paciente user = Paciente(id: '0', fname: '0', lname: '0', img: '0', bday: '0', condicao: '0', password: '0', fonos: ['0'], token: '0', firstLogin: false, v: 0);
-                        for (int i=0; i<pacientes.length; i++) {
-                          if (pacientes[i].token == token) {
-                            isValidToken = true;
-                            user = pacientes[i];                          }
-                        }
-
-                        if (isValidToken) {
+                        //List<Paciente> pacientes = await ApiService().getPacientes(); 
+                        //bool isValidToken = false;
+                        // Paciente user = Paciente(id: '0', fname: '0', lname: '0', img: '0', bday: '0', condicao: '0', password: '0', fonos: ['0'], token: '0', firstLogin: false, v: 0);
+                        // for (int i=0; i<pacientes.length; i++) {
+                        //   if (pacientes[i].token == token) {
+                        //     isValidToken = true;
+                        //     user = pacientes[i];                          }
+                        // }
+                        var user = await ApiService().getPacienteByToken(token);
+                        
+                        if (user!=null) {
                             Navigator.push( context, MaterialPageRoute(
                               builder: ((context) => Password(user: user,))));
                         } else { showDialog(

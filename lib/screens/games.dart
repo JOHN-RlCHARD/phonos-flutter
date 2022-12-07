@@ -58,39 +58,39 @@ class Games extends StatelessWidget {
                     children: [
                       GameCard(
                         title: 'Forca',
-                        difficulty: 'Easy',
+                        difficulty: 'Fácil',
                         description:
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-                        image: AssetImage('assets/kawaii_polar.png'),
+                          'Revele a palavra escondida letra por letra, mas cuidado, suas tentativas são limitadas pelo número de pétalas na flor que o David está segurando.',
+                        image: AssetImage('assets/splash_forca.png'),
                       ),
                       GameCard(
-                        title: 'Forca',
-                        difficulty: 'Easy',
+                        title: 'Caça-Palavras',
+                        difficulty: 'Dinâmico',
                         description:
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-                        image: AssetImage('assets/kawaii_polar.png'),
+                            'Escolha a dificuldade e encontre todas as palavras escondidas no tabuleiro. Quanto menor o tempo que demorar para encontrá-las, maior será sua pontuação!',
+                        image: AssetImage('assets/splash_wordhunt.png'),
                       ),
-                      GameCard(
-                        title: 'Forca',
-                        difficulty: 'Easy',
-                        description:
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-                        image: AssetImage('assets/kawaii_polar.png'),
-                      ),
-                      GameCard(
-                        title: 'Forca',
-                        difficulty: 'Easy',
-                        description:
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-                        image: AssetImage('assets/kawaii_polar.png'),
-                      ),
-                      GameCard(
-                        title: 'Forca',
-                        difficulty: 'Easy',
-                        description:
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
-                        image: AssetImage('assets/kawaii_polar.png'),
-                      ),
+                      // GameCard(
+                      //   title: 'Forca',
+                      //   difficulty: 'Easy',
+                      //   description:
+                      //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+                      //   image: AssetImage('assets/kawaii_polar.png'),
+                      // ),
+                      // GameCard(
+                      //   title: 'Forca',
+                      //   difficulty: 'Easy',
+                      //   description:
+                      //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+                      //   image: AssetImage('assets/kawaii_polar.png'),
+                      // ),
+                      // GameCard(
+                      //   title: 'Forca',
+                      //   difficulty: 'Easy',
+                      //   description:
+                      //       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+                      //   image: AssetImage('assets/kawaii_polar.png'),
+                      // ),
                     ],
                   ),
                 ],
