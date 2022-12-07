@@ -1,3 +1,5 @@
+import 'package:app_fono/api/api_service.dart';
+import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/home_paciente.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
@@ -7,7 +9,9 @@ import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
 
 class ChooseAvatar extends StatefulWidget {
-  const ChooseAvatar({super.key});
+  final Paciente user;
+
+  const ChooseAvatar({super.key, required this.user});
 
   @override
   State<ChooseAvatar> createState() => _ChooseAvatarState();
@@ -185,8 +189,9 @@ class _ChooseAvatarState extends State<ChooseAvatar> with TickerProviderStateMix
                     CustomButton(
                       text: 'Confirmar', 
                       onPressed: () {
+                        ApiService().changeAvatar(widget.user.token, selectedAvatar);
                         Navigator.push(context, MaterialPageRoute(
-                          builder: ((context) => HomePaciente(avatar: selectedAvatar,))));
+                          builder: ((context) => HomePaciente(avatar: selectedAvatar, user: widget.user,))));
                       }
                     )
                   ],

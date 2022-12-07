@@ -1,3 +1,5 @@
+import 'package:app_fono/api/api_service.dart';
+import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/consultas.dart';
 import 'package:app_fono/screens/home.dart';
 import 'package:app_fono/screens/profile.dart';
@@ -10,9 +12,10 @@ import '../widgets/appbar.dart';
 import 'games.dart';
 
 class HomePaciente extends StatelessWidget {
+  final Paciente user;
   final String avatar;
 
-  const HomePaciente({super.key, required this.avatar});
+  const HomePaciente({super.key, required this.avatar, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class HomePaciente extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                'Fulaninho',
+                user.fname,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               const SizedBox(
@@ -46,7 +49,7 @@ class HomePaciente extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => ProfileScreen())));
+                            builder: ((context) => ProfileScreen(user: user, avatar: avatar,))));
                   }),
               const SizedBox(
                 height: 20,
@@ -56,7 +59,7 @@ class HomePaciente extends StatelessWidget {
                   text: 'Jogos',
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => Games())));
+                        MaterialPageRoute(builder: ((context) => Games(avatar: avatar,))));
                   }),
               const SizedBox(
                 height: 20,
@@ -65,6 +68,7 @@ class HomePaciente extends StatelessWidget {
                   icon: Icon(Icons.calendar_month),
                   text: 'Consultas',
                   onPressed: () {
+                    //ApiService().putFirstLogin(user.token, '123123');
                     Navigator.push(context,
                         MaterialPageRoute(builder: ((context) => Consultas())));
                   }),

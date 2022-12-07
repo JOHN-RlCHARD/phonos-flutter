@@ -1,3 +1,4 @@
+import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,45 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../widgets/appbar.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  final Paciente user;
+  final String avatar;
+
+  ProfileScreen({super.key, required this.user, required this.avatar});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late String idade="";
+
+
+  void calcularIdade() {
+    var now = DateTime.now();
+
+    var birthYear = widget.user.bday.substring(0,4);
+    var birthYearInt = int.parse(birthYear);
+
+    var birthMonth = widget.user.bday.substring(5,7);
+    var birthMonthInt = int.parse(birthMonth);
+
+    var birthDay = widget.user.bday.substring(8,10);
+    var birthDayInt = int.parse(birthDay);
+
+    var idadeInt = now.year - birthYearInt;
+
+    if (now.month<=birthMonthInt && now.day<birthDayInt) idadeInt--;
+
+    idade = idadeInt.toString();
+
+  }
+  
+  @override
+  void initState() {
+    calcularIdade();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +57,9 @@ class ProfileScreen extends StatelessWidget {
         child: Center(
           child: ResponsiveBox(
             children: [
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage(
-                  'assets/fono_profile.jpg',
-                ),
+              Container(
+                width: 80,
+                child: Image(image: AssetImage(widget.avatar,),)
               ),
               SizedBox(
                 height: 20,
@@ -44,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    'David',
+                    widget.user.fname+" "+widget.user.lname,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black54,
@@ -66,12 +101,14 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    '19',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                        fontSize: 18),
+                  Container(
+                    child: Text(
+                      idade,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          fontSize: 18),
+                    ),
                   )
                 ],
               ),

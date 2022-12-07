@@ -7,7 +7,9 @@ import '../widgets/responsive_bg.dart';
 import '../widgets/responsive_box.dart';
 
 class Games extends StatelessWidget {
-  const Games({super.key});
+  final String avatar;
+
+  const Games({super.key, required this.avatar});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,9 @@ class Games extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage(
-                      'assets/fono_profile.jpg',
-                    ),
+                  Container(
+                    width: 80,
+                    child: Image(image: AssetImage(avatar,),)
                   ),
                   SizedBox(
                     height: 50,

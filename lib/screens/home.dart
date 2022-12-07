@@ -1,9 +1,12 @@
+import 'package:app_fono/api/api_service.dart';
 import 'package:app_fono/screens/create_password.dart';
 import 'package:app_fono/screens/home_paciente.dart';
+import 'package:app_fono/screens/password.dart';
 import 'package:app_fono/widgets/appbar.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../api/models/paciente.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/responsive_box.dart';
 
@@ -223,11 +226,40 @@ class _HomePageState extends State<HomePage> {
                 text: 'Entrar',
                 onPressed: (token.length != 5)
                     ? null
-                    : () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) => CreatePassword())));
+                    : () async {
+                        token = '${txt1.text.toString()}${txt2.text.toString()}${txt3.text.toString()}${txt4.text.toString()}${txt5.text.toString()}';
+                        // Navigator.push(
+                        // context,
+                        // MaterialPageRoute(
+                        //     builder: ((context) => Test())));
+                        List<Paciente> pacientes = await ApiService().getPacientes(); 
+                        bool isValidToken = false;
+                        Paciente user = Paciente(id: '0', fname: '0', lname: '0', img: '0', bday: '0', condicao: '0', password: '0', fonos: ['0'], token: '0', firstLogin: false, v: 0);
+                        for (int i=0; i<pacientes.length; i++) {
+                          if (pacientes[i].token == token) {
+                            isValidToken = true;
+                            user = pacientes[i];                          }
+                        }
+
+                        if (isValidToken) {
+                            Navigator.push( context, MaterialPageRoute(
+                              builder: ((context) => Password(user: user,))));
+                        } else { showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                            actionsAlignment: MainAxisAlignment.center,
+                            title: Center(child: Text('Token Inválido')),
+                            actions: [
+                              TextButton(
+                                onPressed: () {Navigator.of(context).pop();},
+                                child: Text("Ok")
+                              )
+                            ],
+                            );
+                          }
+                        );
+                        }
                       },
               ),
               //SizedBox(height: 20,),

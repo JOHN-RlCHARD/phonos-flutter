@@ -1,3 +1,5 @@
+import 'package:app_fono/api/api_service.dart';
+import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/choose_avatar.dart';
 import 'package:app_fono/screens/home_paciente.dart';
 import 'package:app_fono/widgets/custom_button.dart';
@@ -9,7 +11,9 @@ import 'package:flutter_password_strength/flutter_password_strength.dart';
 import '../widgets/appbar.dart';
 
 class CreatePassword extends StatefulWidget {
-  const CreatePassword({super.key});
+  final Paciente user;
+
+  const CreatePassword({super.key, required this.user});
 
   @override
   State<CreatePassword> createState() => _CreatePasswordState();
@@ -102,7 +106,7 @@ class _CreatePasswordState extends State<CreatePassword> {
                       ),
                     ),
                     Text(
-                      "Fulaninho.",
+                      widget.user.fname+".",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF449BC0),
@@ -235,13 +239,14 @@ class _CreatePasswordState extends State<CreatePassword> {
                           text: "Enviar",
                           onPressed: (strength < 2 / 4 || isCorresponding < 2)
                               ? null
-                              : () {
+                              : () async {
+                                ApiService().putFirstLogin(widget.user.token, password);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: ((context) =>
                                               //HomePaciente()
-                                              ChooseAvatar()
+                                              ChooseAvatar(user: widget.user,)
                                               )));
                                 }),
                     ],
