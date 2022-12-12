@@ -2,6 +2,7 @@ import 'package:app_fono/api/api_service.dart';
 import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/choose_avatar.dart';
 import 'package:app_fono/screens/home_paciente.dart';
+import 'package:app_fono/variables/globals.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
@@ -11,10 +12,8 @@ import 'package:flutter_password_strength/flutter_password_strength.dart';
 import '../widgets/appbar.dart';
 
 class CreatePassword extends StatefulWidget {
-  final Paciente user;
-  final String accessToken;
 
-  const CreatePassword({super.key, required this.user, required this.accessToken});
+  const CreatePassword({super.key});
 
   @override
   State<CreatePassword> createState() => _CreatePasswordState();
@@ -91,170 +90,161 @@ class _CreatePasswordState extends State<CreatePassword> {
       ),
       body: ResponsiveBackground(
         child: Center(
-          child: SingleChildScrollView(
-            child: ResponsiveBox(
-              children: [
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text(
-                      "Olá, responsável de ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      widget.user.fname+".",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF449BC0),
-                        fontWeight: FontWeight.w800,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "Como esse é seu primeiro login,\ndeverá cadastrar uma senha.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Form(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
+          child: FutureBuilder(
+            future: ApiService().getPacienteByToken(USER_TOKEN, ACCESS_TOKEN),
+            builder: (BuildContext context, AsyncSnapshot<Paciente?> snapshot) { 
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  child: ResponsiveBox(
                     children: [
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 250),
-                        child: TextFormField(
-                          onChanged: ((value) => checkPassword(value)),
-                          obscureText: isObscure,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: Icon(isObscure
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () {
-                                setState(() {
-                                  isObscure = !isObscure;
-                                });
-                              },
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            "Olá, responsável de ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20,
                             ),
-                            hintText: 'Senha',
                           ),
+                          Text(
+                            snapshot.data!.fname+".",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF449BC0),
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Como esse é seu primeiro login,\ndeverá cadastrar uma senha.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
                         ),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: 250),
-                        child: TextFormField(
-                          onChanged: (value) => checkPassword2(value),
-                          obscureText: isObscure2,
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              icon: Icon(isObscure2
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () {
-                                setState(() {
-                                  isObscure2 = !isObscure2;
-                                });
-                              },
-                            ),
-                            hintText: 'Repita sua senha',
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(
-                        height: 10,
-                      ),
-
-                      Container(
-                        height: 18,
-                        constraints: BoxConstraints(maxWidth: 250),
-                        child: (isCorresponding != 1)
-                            ? null
-                            : Text(
-                                correspondingText,
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 13),
-                              ),
-                      ),
-
-                      SizedBox(
-                        height: strength == 0 ? null : 10,
-                      ),
-
-                      //PASSWORD STRENGTH INDICATOR
-                      // ConstrainedBox(
-                      //   constraints: BoxConstraints(maxWidth: 250),
-                      //   child: (strength == 0)
-                      //       ? null
-                      //       : LinearProgressIndicator(
-                      //           color: strength == 1 / 4
-                      //               ? Colors.red
-                      //               : strength == 2 / 4
-                      //                   ? Colors.yellow
-                      //                   : strength == 3 / 4
-                      //                       ? Colors.blue
-                      //                       : Colors.green,
-                      //           value: strength,
-                      //           backgroundColor: Colors.grey.withOpacity(0.5),
-                      //         ),
-                      // ),
-                      Container(
-                        constraints: BoxConstraints(maxWidth: 250),
-                        child: strength == 0
-                            ? null
-                            : FlutterPasswordStrength(password: password),
-                      ),
-                      SizedBox(
-                        height: strength == 0 ? null : 10,
-                      ),
-                      //PASSWORD STRENGTH TEXT
-                      Container(
-                        constraints: BoxConstraints(maxWidth: 250),
-                        child: (strength == 0)
-                            ? null
-                            : Text(
-                                text,
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                      ),
-
                       SizedBox(
                         height: 20,
                       ),
-                      CustomButton(
-                          text: "Enviar",
-                          onPressed: (strength < 2 / 4 || isCorresponding < 2)
-                              ? null
-                              : () async {
-                                ApiService().putFirstLogin(widget.user.token, password, widget.accessToken);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              //HomePaciente()
-                                              ChooseAvatar(user: widget.user, accessToken: widget.accessToken,)
-                                              )));
-                                }),
+                      Form(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: 250),
+                              child: TextFormField(
+                                onChanged: ((value) => checkPassword(value)),
+                                obscureText: isObscure,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: Icon(isObscure
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        isObscure = !isObscure;
+                                      });
+                                    },
+                                  ),
+                                  hintText: 'Senha',
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxWidth: 250),
+                              child: TextFormField(
+                                onChanged: (value) => checkPassword2(value),
+                                obscureText: isObscure2,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: Icon(isObscure2
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        isObscure2 = !isObscure2;
+                                      });
+                                    },
+                                  ),
+                                  hintText: 'Repita sua senha',
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(
+                              height: 10,
+                            ),
+
+                            Container(
+                              height: 18,
+                              constraints: BoxConstraints(maxWidth: 250),
+                              child: (isCorresponding != 1)
+                                  ? null
+                                  : Text(
+                                      correspondingText,
+                                      style:
+                                          TextStyle(color: Colors.red, fontSize: 13),
+                                    ),
+                            ),
+
+                            SizedBox(
+                              height: strength == 0 ? null : 10,
+                            ),
+
+                            Container(
+                              constraints: BoxConstraints(maxWidth: 250),
+                              child: strength == 0
+                                  ? null
+                                  : FlutterPasswordStrength(password: password),
+                            ),
+                            SizedBox(
+                              height: strength == 0 ? null : 10,
+                            ),
+                            //PASSWORD STRENGTH TEXT
+                            Container(
+                              constraints: BoxConstraints(maxWidth: 250),
+                              child: (strength == 0)
+                                  ? null
+                                  : Text(
+                                      text,
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                            ),
+
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomButton(
+                                text: "Enviar",
+                                onPressed: (strength < 2 / 4 || isCorresponding < 2)
+                                    ? null
+                                    : () async {
+                                      ApiService().putFirstLogin(USER_TOKEN, password, ACCESS_TOKEN);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    ChooseAvatar(route: "firstLogin",))));
+                                      }),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
-            ),
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+             },
+            
           ),
         ),
       ),

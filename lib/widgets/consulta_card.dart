@@ -49,7 +49,7 @@ class _ConsultaCardState extends State<ConsultaCard> {
             Container(
               alignment: Alignment.topLeft,
               constraints: BoxConstraints(minWidth: 220, maxWidth: 400),
-              width: MediaQuery.of(context).size.width/2,
+              width: MediaQuery.of(context).size.width/1.7,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.horizontal(right: Radius.circular(7)),
                   color: Colors.white,

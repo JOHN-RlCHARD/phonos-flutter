@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:app_fono/api/models/access_token.dart';
 import 'package:app_fono/api/models/agendamento.dart';
+import 'package:app_fono/api/models/fono.dart';
 import 'package:app_fono/api/models/paciente.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -93,6 +94,25 @@ class ApiService {
     final agendamentos = List<Agendamento>.from(data.map((cat)=>Agendamento.fromMap(cat)));
   
     return agendamentos;
+
+  }
+
+  Future<Fono?> getFonoByCrfa(String crfa, String accessToken) async {
+    final fonoUri = Uri.parse('$url/fonos/${crfa}');
+    final res = await http.get(
+      fonoUri,
+      headers: {
+        "Authorization": "Bearer ${accessToken}"
+      }
+    );
+
+    if (res.statusCode == 200) {
+      final data = jsonDecode(res.body);
+      var fono = Fono.fromMap(data);
+      return fono;
+    } else {
+      return null;
+    }
 
   }
 

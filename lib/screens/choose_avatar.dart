@@ -1,6 +1,8 @@
 import 'package:app_fono/api/api_service.dart';
 import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/home_paciente.dart';
+import 'package:app_fono/screens/profile.dart';
+import 'package:app_fono/variables/globals.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
@@ -9,10 +11,9 @@ import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
 
 class ChooseAvatar extends StatefulWidget {
-  final Paciente user;
-  final String accessToken;
+  final String route;
 
-  const ChooseAvatar({super.key, required this.user, required this.accessToken});
+  const ChooseAvatar({super.key, required this.route});
 
   @override
   State<ChooseAvatar> createState() => _ChooseAvatarState();
@@ -20,7 +21,7 @@ class ChooseAvatar extends StatefulWidget {
 
 class _ChooseAvatarState extends State<ChooseAvatar> with TickerProviderStateMixin {
 
-  late String selectedAvatar;
+  String selectedAvatar = "";
 
   late AnimationController _colorAnimationController0;
   late AnimationController _colorAnimationController1;
@@ -117,42 +118,44 @@ class _ChooseAvatarState extends State<ChooseAvatar> with TickerProviderStateMix
                           avatar: 0,
                           color: _iconColorAnimation0.value,
                           onTap: () {
+                            
+                            _active0 = true;
+                            
                             _active0
                               ? _colorAnimationController0.forward()
                               : _colorAnimationController0.reverse();
 
-                              _active0 = !_active0;
-
-                            if(!_active1) {
+                            if(_active1) {
                               _colorAnimationController1.reverse();
-                              _active1 = !_active1;
+                              _active1 = false;
                               }
-                            if(!_active2) {
+                            if(_active2) {
                               _colorAnimationController2.reverse();
-                              _active2 = !_active2;
+                              _active2 = false;
                             }
 
                             selectedAvatar = 'assets/avatar_dog.png';
-
+                            print(selectedAvatar);
                           },
                         ),
                         AvatarCard(
                           avatar: 1,
                           color: _iconColorAnimation1.value,
                           onTap: () {
+
+                            _active1 = true;
+
                             _active1
                               ? _colorAnimationController1.forward()
                               : _colorAnimationController1.reverse();
 
-                              _active1 = !_active1;
-
-                              if(!_active0) {
+                              if(_active0) {
                               _colorAnimationController0.reverse();
-                              _active0 = !_active0;
+                              _active0 = false;
                               }
-                            if(!_active2) {
+                            if(_active2) {
                               _colorAnimationController2.reverse();
-                              _active2 = !_active2;
+                              _active2 = false;
                             }
 
                             selectedAvatar = 'assets/avatar_coruja.png';
@@ -163,19 +166,20 @@ class _ChooseAvatarState extends State<ChooseAvatar> with TickerProviderStateMix
                           avatar: 2,
                           color: _iconColorAnimation2.value,
                           onTap: () {
+
+                            _active2 = true;
+
                             _active2
                               ? _colorAnimationController2.forward()
                               : _colorAnimationController2.reverse();
 
-                              _active2 = !_active2;
-
-                              if(!_active1) {
+                              if(_active1) {
                               _colorAnimationController1.reverse();
-                              _active1 = !_active1;
+                              _active1 = false;
                               }
-                            if(!_active0) {
+                            if(_active0) {
                               _colorAnimationController0.reverse();
-                              _active0 = !_active0;
+                              _active0 = false;
                             }
 
                             selectedAvatar = 'assets/avatar_morcego.png';
@@ -189,13 +193,31 @@ class _ChooseAvatarState extends State<ChooseAvatar> with TickerProviderStateMix
                     ),
                     CustomButton(
                       text: 'Confirmar', 
-                      onPressed: () {
-                        ApiService().changeAvatar(widget.user.token, selectedAvatar, widget.accessToken);
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePaciente(avatar: selectedAvatar, user: widget.user, accessToken: widget.accessToken,)),
-                          (route) => false
-                        );
+                      onPressed: (selectedAvatar == "") ? null
+                      : () async {
+                        var user = await ApiService().getPacienteByToken(USER_TOKEN, ACCESS_TOKEN);
+                        await ApiService().changeAvatar(user!.token, selectedAvatar, ACCESS_TOKEN);
+                        if (widget.route == "firstLogin") {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePaciente()),
+                            (route) => false
+                          );
+                        } else if (widget.route == "changeAvatar") {
+                          
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePaciente()),
+                            (route) => false
+                          ).then((value) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) =>
+                                    ProfileScreen())));
+                          });
+                          
+                        }
                         // Navigator.push(context, MaterialPageRoute(
                         //   builder: ((context) => HomePaciente(avatar: selectedAvatar, user: widget.user,))));
                       }
