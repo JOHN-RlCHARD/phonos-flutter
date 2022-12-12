@@ -14,8 +14,9 @@ import 'games.dart';
 class HomePaciente extends StatelessWidget {
   final Paciente user;
   final String avatar;
+  final String accessToken;
 
-  const HomePaciente({super.key, required this.avatar, required this.user});
+  const HomePaciente({super.key, required this.avatar, required this.user, required this.accessToken});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class HomePaciente extends StatelessWidget {
                   onPressed: () {
                     //ApiService().putFirstLogin(user.token, '123123');
                     Navigator.push(context,
-                        MaterialPageRoute(builder: ((context) => Consultas())));
+                        MaterialPageRoute(builder: ((context) => Consultas(user: user, accessToken: accessToken,))));
                   }),
               const SizedBox(
                 height: 20,

@@ -10,8 +10,9 @@ import '../widgets/appbar.dart';
 
 class ChooseAvatar extends StatefulWidget {
   final Paciente user;
+  final String accessToken;
 
-  const ChooseAvatar({super.key, required this.user});
+  const ChooseAvatar({super.key, required this.user, required this.accessToken});
 
   @override
   State<ChooseAvatar> createState() => _ChooseAvatarState();
@@ -189,9 +190,14 @@ class _ChooseAvatarState extends State<ChooseAvatar> with TickerProviderStateMix
                     CustomButton(
                       text: 'Confirmar', 
                       onPressed: () {
-                        ApiService().changeAvatar(widget.user.token, selectedAvatar);
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: ((context) => HomePaciente(avatar: selectedAvatar, user: widget.user,))));
+                        ApiService().changeAvatar(widget.user.token, selectedAvatar, widget.accessToken);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePaciente(avatar: selectedAvatar, user: widget.user, accessToken: widget.accessToken,)),
+                          (route) => false
+                        );
+                        // Navigator.push(context, MaterialPageRoute(
+                        //   builder: ((context) => HomePaciente(avatar: selectedAvatar, user: widget.user,))));
                       }
                     )
                   ],

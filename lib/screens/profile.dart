@@ -64,53 +64,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Seu Nome',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                        fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    widget.user.fname+" "+widget.user.lname,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                        fontSize: 18),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Idade',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                        fontSize: 18),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    child: Text(
-                      idade,
+              Container(
+                alignment: Alignment.center,
+                constraints: BoxConstraints(maxWidth: 360),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Seu Nome: ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black54,
                           fontSize: 18),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      widget.user.fname+" "+widget.user.lname,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          fontSize: 18),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                constraints: BoxConstraints(maxWidth: 360),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Idade: ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          fontSize: 18),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      child: Text(
+                        idade+" anos",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54,
+                            fontSize: 18),
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 40,

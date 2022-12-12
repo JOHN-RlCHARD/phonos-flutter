@@ -1,7 +1,6 @@
 import 'package:app_fono/api/api_service.dart';
 import 'package:app_fono/screens/create_password.dart';
 import 'package:app_fono/screens/home_paciente.dart';
-import 'package:app_fono/screens/password.dart';
 import 'package:app_fono/widgets/appbar.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late TextEditingController txt1, txt2, txt3, txt4, txt5;
+  late TextEditingController txt1, txt2, txt3, txt4, txt5, passwordController;
   late FocusNode focus1, focus2, focus3, focus4, focus5;
   String token = "";
+  final formKey = GlobalKey<FormState>();
+  bool isObscure = true;
+  String password = '';
+  bool enabledButton = true;
 
   @override
   void initState() {
@@ -30,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     txt3 = new TextEditingController();
     txt4 = new TextEditingController();
     txt5 = new TextEditingController();
+    passwordController = new TextEditingController();
     focus1 = new FocusNode();
     focus2 = new FocusNode();
     focus3 = new FocusNode();
@@ -219,49 +223,118 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              SizedBox(
-                height: 30,
+              // SizedBox(
+              //   height: 30,
+              // ),
+              // CustomButton(
+              //   text: 'Entrar',
+              //   onPressed: (token.length != 5)
+              //       ? null
+              //       : () async {
+              //           token = '${txt1.text.toString()}${txt2.text.toString()}${txt3.text.toString()}${txt4.text.toString()}${txt5.text.toString()}';
+              //           // Navigator.push(
+              //           // context,
+              //           // MaterialPageRoute(
+              //           //     builder: ((context) => Test())));
+              //           //List<Paciente> pacientes = await ApiService().getPacientes(); 
+              //           //bool isValidToken = false;
+              //           // Paciente user = Paciente(id: '0', fname: '0', lname: '0', img: '0', bday: '0', condicao: '0', password: '0', fonos: ['0'], token: '0', firstLogin: false, v: 0);
+              //           // for (int i=0; i<pacientes.length; i++) {
+              //           //   if (pacientes[i].token == token) {
+              //           //     isValidToken = true;
+              //           //     user = pacientes[i];                          }
+              //           // }
+              //           var user = await ApiService().getPacienteByToken(token);
+                        
+              //           if (user!=null) {
+              //               Navigator.push( context, MaterialPageRoute(
+              //                 builder: ((context) => Password(user: user,))));
+              //           } else { showDialog(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return AlertDialog(
+              //               actionsAlignment: MainAxisAlignment.center,
+              //               title: Center(child: Text('Token Inválido')),
+              //               actions: [
+              //                 TextButton(
+              //                   onPressed: () {Navigator.of(context).pop();},
+              //                   child: Text("Ok")
+              //                 )
+              //               ],
+              //               );
+              //             }
+              //           );
+              //           }
+              //         },
+              // ),
+
+              SizedBox(height: 10,),
+
+              Form(
+                key: formKey,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 250),
+                  child: TextFormField(
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Campo vazio';
+                      return "Token ou senha inválidos.";
+                    },
+                    onChanged:(value) {
+                      password = value;
+                      //formKey.currentState!.reset();
+                    },
+                    obscureText: isObscure,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(isObscure
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            isObscure = !isObscure;
+                          });
+                        },
+                      ),
+                      hintText: 'Senha',
+                    ),
+                  ),
+                ),
               ),
+              SizedBox(height: 20,),
               CustomButton(
                 text: 'Entrar',
-                onPressed: (token.length != 5)
+                onPressed: (token.length != 5 || !enabledButton)
                     ? null
-                    : () async {
-                        token = '${txt1.text.toString()}${txt2.text.toString()}${txt3.text.toString()}${txt4.text.toString()}${txt5.text.toString()}';
-                        // Navigator.push(
-                        // context,
-                        // MaterialPageRoute(
-                        //     builder: ((context) => Test())));
-                        //List<Paciente> pacientes = await ApiService().getPacientes(); 
-                        //bool isValidToken = false;
-                        // Paciente user = Paciente(id: '0', fname: '0', lname: '0', img: '0', bday: '0', condicao: '0', password: '0', fonos: ['0'], token: '0', firstLogin: false, v: 0);
-                        // for (int i=0; i<pacientes.length; i++) {
-                        //   if (pacientes[i].token == token) {
-                        //     isValidToken = true;
-                        //     user = pacientes[i];                          }
-                        // }
-                        var user = await ApiService().getPacienteByToken(token);
+                    : () async  {
+                      enabledButton = false; setState(() {});
+                      token = '${txt1.text.toString()}${txt2.text.toString()}${txt3.text.toString()}${txt4.text.toString()}${txt5.text.toString()}';
+                      password = passwordController.text.toString();
+
+                      var accessToken = await ApiService().logIn(token, password);
+
+                      if (accessToken == null) {
+                        formKey.currentState!.validate();
+                        await Future.delayed(Duration(milliseconds: 1500));
+                        enabledButton=true; 
+                        setState(() {});
+                      } else {
+                        var user = await ApiService().getPacienteByToken(token, accessToken);
                         
-                        if (user!=null) {
-                            Navigator.push( context, MaterialPageRoute(
-                              builder: ((context) => Password(user: user,))));
-                        } else { showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                            actionsAlignment: MainAxisAlignment.center,
-                            title: Center(child: Text('Token Inválido')),
-                            actions: [
-                              TextButton(
-                                onPressed: () {Navigator.of(context).pop();},
-                                child: Text("Ok")
-                              )
-                            ],
-                            );
-                          }
+                        if (user!.firstLogin) {
+                          Navigator.push( context, MaterialPageRoute(
+                              builder: ((context) => CreatePassword(user: user, accessToken: accessToken,))));
+                        } else {
+                          Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePaciente(avatar: user.img, user: user, accessToken: accessToken,)),
+                          (route) => false
                         );
                         }
-                      },
+
+                      }
+
+                }
               ),
               //SizedBox(height: 20,),
             ],

@@ -67,11 +67,11 @@ class _ConsultaCardState extends State<ConsultaCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.date,
+                      "Data: "+widget.date,
                       style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      widget.time,
+                      "Horário: "+widget.time,
                       style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(

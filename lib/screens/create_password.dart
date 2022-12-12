@@ -12,8 +12,9 @@ import '../widgets/appbar.dart';
 
 class CreatePassword extends StatefulWidget {
   final Paciente user;
+  final String accessToken;
 
-  const CreatePassword({super.key, required this.user});
+  const CreatePassword({super.key, required this.user, required this.accessToken});
 
   @override
   State<CreatePassword> createState() => _CreatePasswordState();
@@ -240,13 +241,13 @@ class _CreatePasswordState extends State<CreatePassword> {
                           onPressed: (strength < 2 / 4 || isCorresponding < 2)
                               ? null
                               : () async {
-                                ApiService().putFirstLogin(widget.user.token, password);
+                                ApiService().putFirstLogin(widget.user.token, password, widget.accessToken);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: ((context) =>
                                               //HomePaciente()
-                                              ChooseAvatar(user: widget.user,)
+                                              ChooseAvatar(user: widget.user, accessToken: widget.accessToken,)
                                               )));
                                 }),
                     ],
