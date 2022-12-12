@@ -37,7 +37,7 @@ class Consultas extends StatelessWidget {
                 ),
                 SizedBox(height: 30,),
                 Container(
-                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height-200),
+                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height-250),
                   child: FutureBuilder(
                     future: ApiService().getAgendamentos(USER_TOKEN, ACCESS_TOKEN),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
