@@ -41,6 +41,7 @@ dependencies:
   flutter_password_strength: ^0.1.6
   mongo_dart: ^0.7.4+1
   http: ^0.13.5
+  lottie: ^2.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -93,6 +94,8 @@ flutter:
     - assets/avatar_morcego.png
     - assets/splash_wordhunt.png
     - assets/splash_forca.png
+    - assets/phonos_splash.json
+    - assets/phonos_splash2.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

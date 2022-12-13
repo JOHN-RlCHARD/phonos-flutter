@@ -10,7 +10,9 @@ class MyAppBar extends StatelessWidget {
       shadowColor: Colors.black.withOpacity(0.5),
       backgroundColor: Color(0xFF449BC0),
       title: Center(
-        child: Image(image: AssetImage('assets/phonos_logo.png'))
+        child: 
+        //Image(image: AssetImage('assets/phonos_logo.png'))
+        SvgPicture.asset('assets/phonos_logo.svg')
         ),
       );
   }

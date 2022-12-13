@@ -1,4 +1,5 @@
 import 'package:app_fono/screens/home.dart';
+import 'package:app_fono/screens/splashscreen.dart';
 import 'package:app_fono/themes/my_input_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Open Sans'),
         //inputDecorationTheme: MyInputTheme().theme(),
       ),
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
