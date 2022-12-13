@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   bool isObscure = true;
   String password = '';
   bool enabledButton = true;
+  String ip = "";
 
   @override
   void initState() {
@@ -83,16 +84,16 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               'Bem vindo ao ',
                               style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 20,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 20,
                               ),
                             ),
                             Text(
                               'Phonos!',
                               style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 20,
-                              color: Color(0xFF449BC0),
+                                fontWeight: FontWeight.w800,
+                                fontSize: 20,
+                                color: Color(0xFF449BC0),
                               ),
                             ),
                           ],
@@ -109,17 +110,16 @@ class _HomePageState extends State<HomePage> {
                           height: 20,
                         ),
                       ],
-                            ),
-                            Container(
-                              constraints: BoxConstraints(maxWidth: 200, minWidth: 100),
-                              width: 200,
-                              child: Image(
-                                image: AssetImage('assets/dog_login.png'),
-                              ),
-                            ),
-                          ],
-                        ),
-                
+                    ),
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 200, minWidth: 100),
+                      width: 200,
+                      child: Image(
+                        image: AssetImage('assets/dog_login.png'),
+                      ),
+                    ),
+                  ],
+                ),
 
                 Container(
                   width: 250,
@@ -227,7 +227,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
 
                 Form(
                   key: formKey,
@@ -239,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                         if (value!.isEmpty) return 'Campo vazio';
                         return "Token ou senha inválidos.";
                       },
-                      onChanged:(value) {
+                      onChanged: (value) {
                         password = value;
                         //formKey.currentState!.reset();
                       },
@@ -260,41 +262,110 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
-                CustomButton(
-                  text: 'Entrar',
-                  onPressed: (token.length != 5 || !enabledButton)
-                      ? null
-                      : () async  {
-                        enabledButton = false; setState(() {});
-                        token = '${txt1.text.toString()}${txt2.text.toString()}${txt3.text.toString()}${txt4.text.toString()}${txt5.text.toString()}';
-                        password = passwordController.text.toString();
+                SizedBox(
+                  height: 20,
+                ),
+                Wrap(
+                  children: [
+                    CustomButton(
+                        text: 'Entrar',
+                        onPressed: (token.length != 5 || !enabledButton)
+                            ? null
+                            : () async {
+                                if (IP_HOST == "") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text("Insira um IP Host!")));
+                                  return;
+                                }
+                                enabledButton = false;
+                                setState(() {});
+                                token =
+                                    '${txt1.text.toString()}${txt2.text.toString()}${txt3.text.toString()}${txt4.text.toString()}${txt5.text.toString()}';
+                                password = passwordController.text.toString();
 
-                        var accessToken = await ApiService().logIn(token, password);
+                                var accessToken = await ApiService()
+                                    .logIn(token, password)
+                                    .timeout(Duration(seconds: 5),
+                                        onTimeout: (() {
+                                  var accessToken = null;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text("IP Host Inválido")));
+                                  return;
+                                }));
 
-                        if (accessToken == null) {
-                          formKey.currentState!.validate();
-                          await Future.delayed(Duration(milliseconds: 1500));
-                          enabledButton=true; 
-                          setState(() {});
-                        } else {
-                          var user = await ApiService().getPacienteByToken(token, accessToken);
+                                if (accessToken == null) {
+                                  formKey.currentState!.validate();
+                                  await Future.delayed(
+                                      Duration(milliseconds: 1500));
+                                  enabledButton = true;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text("IP Host Inválido")));
+                                  setState(() {});
+                                } else {
+                                  var user = await ApiService()
+                                      .getPacienteByToken(token, accessToken);
 
-                          ACCESS_TOKEN = accessToken;
-                          USER_TOKEN = user!.token;
-                          
-                          if (user.firstLogin) {
-                            Navigator.push( context, MaterialPageRoute(
-                                builder: ((context) => CreatePassword())));
-                          } else {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePaciente()),
-                              (route) => false
+                                  ACCESS_TOKEN = accessToken;
+                                  USER_TOKEN = user!.token;
+
+                                  if (user.firstLogin) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                CreatePassword())));
+                                  } else {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomePaciente()),
+                                        (route) => false);
+                                  }
+                                }
+                              }),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                "Digite o IP do host da API",
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              ),
+                              content: TextField(
+                                onChanged: (value) => ip = value.toString(),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    IP_HOST = ip;
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Confirmar"),
+                                )
+                              ],
                             );
-                          }
-                        }
-                  }
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(50, 50),
+                        primary: Color(0xFF449BC0),
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      child: Icon(Icons.router),
+                    )
+                  ],
                 ),
                 //SizedBox(height: 20,),
               ],

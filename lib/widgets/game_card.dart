@@ -5,13 +5,15 @@ class GameCard extends StatelessWidget {
   final String difficulty;
   final String description;
   final AssetImage image;
+  final Function() onPressed;
 
   const GameCard(
       {super.key,
       required this.title,
       required this.difficulty,
       required this.description,
-      required this.image});
+      required this.image,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,7 @@ class GameCard extends StatelessWidget {
                 width: 22,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: onPressed,
                 child: Container(
                   alignment: Alignment.center,
                   width: 100,
@@ -94,7 +96,10 @@ class GameCard extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
-                        child: Icon(Icons.sports_esports, color: Colors.white,),
+                        child: Icon(
+                          Icons.sports_esports,
+                          color: Colors.white,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
