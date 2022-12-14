@@ -23,13 +23,29 @@ class ConsultaCard extends StatefulWidget {
 class _ConsultaCardState extends State<ConsultaCard> {
   late Color color = Colors.white;
   late String link = "";
+  late bool _outDated = true;
 
   @override
   void initState() {
     super.initState();
 
-    if (widget.endereco[0].substring(0,5) == "https") {
+    if (widget.endereco[0].substring(0, 5) == "https") {
       link = widget.endereco[0];
+    }
+
+    var cardYear = int.parse(widget.date.substring(0, 4));
+    var cardMonth = int.parse(widget.date.substring(5, 7));
+    var cardDay = int.parse(widget.date.substring(8, 10));
+
+    var now = DateTime.now();
+
+    if (now.year == cardYear &&
+        now.month == cardMonth &&
+        now.day == cardDay &&
+        link != null) {
+      if (now.hour < 2 + int.parse(widget.time.substring(0, 2))) {
+        _outDated = false;
+      }
     }
 
     if (widget.status == "Cancelado")
@@ -67,9 +83,10 @@ class _ConsultaCardState extends State<ConsultaCard> {
             Container(
               alignment: Alignment.topLeft,
               constraints: BoxConstraints(minWidth: 220, maxWidth: 400),
-              width: MediaQuery.of(context).size.width/1.5,
+              width: MediaQuery.of(context).size.width / 1.5,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.horizontal(right: Radius.circular(7)),
+                  borderRadius:
+                      BorderRadius.horizontal(right: Radius.circular(7)),
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
@@ -80,7 +97,8 @@ class _ConsultaCardState extends State<ConsultaCard> {
                     ),
                   ]),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
                   children: [
                     SizedBox(height: 5),
@@ -91,12 +109,14 @@ class _ConsultaCardState extends State<ConsultaCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Data: "+widget.date,
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                              "Data: " + widget.date,
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              "Horário: "+widget.time,
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                              "Horário: " + widget.time,
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(
                               height: 5,
@@ -111,41 +131,53 @@ class _ConsultaCardState extends State<ConsultaCard> {
                           ],
                         ),
                         Spacer(),
-                        (link == "") ? Container() :Container(
-                          height: 30,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await _launchInBrowser(Uri.parse(link));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(30, 30),
-                              primary: Color(0xFF449BC0),
-                              onPrimary: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                            ),
-                            child: Icon(Icons.start, size: 20,),
-                          ),
-                        ),
+                        (widget.mode == 'presencial')
+                            ? Container()
+                            : Container(
+                                height: 30,
+                                child: ElevatedButton(
+                                  onPressed: (_outDated)
+                                      ? null
+                                      : () async {
+                                          await _launchInBrowser(
+                                              Uri.parse(link));
+                                        },
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: Size(30, 30),
+                                    primary: Color(0xFF449BC0),
+                                    onPrimary: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                  ),
+                                  child: Icon(
+                                    Icons.start,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                     Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              widget.status,
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w800, color: color),
-                            ),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          widget.status,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w800,
+                              color: color),
                         ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 12,),
+        SizedBox(
+          height: 12,
+        ),
       ],
     );
   }
