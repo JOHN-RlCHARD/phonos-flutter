@@ -8,6 +8,7 @@ import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
 import 'package:app_fono/widgets/responsive_box.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/appbar.dart';
 import 'games.dart';
@@ -78,7 +79,6 @@ class HomePaciente extends StatelessWidget {
                           icon: Icon(Icons.calendar_month),
                           text: 'Consultas',
                           onPressed: () {
-                            //ApiService().putFirstLogin(user.token, '123123');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -87,6 +87,19 @@ class HomePaciente extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+
+                      // CustomButton(
+                      //     icon: Icon(Icons.meeting_room),
+                      //     text: 'Ingressar na Consulta',
+                      //     onPressed: () async {
+                            
+                      //       await _launchInBrowser(Uri.parse("https://us05web.zoom.us/j/83486298042?pwd=WmoyQjd3RFBaSmIva1RPSXZwTEkvUT09"));
+                            
+                      //     }),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+
                       TextButton(
                         onPressed: () {
                           ACCESS_TOKEN = "";

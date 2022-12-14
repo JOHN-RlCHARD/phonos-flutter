@@ -41,10 +41,10 @@ class _GameWebviewState extends State<GameWebview> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF449BC0),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(56),
-        child: MyAppBar(),
-      ),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(56),
+      //   child: MyAppBar(),
+      // ),
       body: Transform.scale(
         scale: 0.95,
         child: WebView(
@@ -56,23 +56,5 @@ class _GameWebviewState extends State<GameWebview> {
         ),
       ),
     );
-    // return Scaffold(
-    //   appBar: PreferredSize(
-    //     preferredSize: Size.fromHeight(56),
-    //     child: MyAppBar(),
-    //   ),
-    //   body: Column(
-    //     children: [
-    //       Expanded(
-    //         child: WebviewScaffold(
-    //           url: "http://" + IP_HOST + ":" + widget.gamePort,
-    //           withJavascript: true,
-    //           withZoom: true,
-    //           displayZoomControls: true,
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

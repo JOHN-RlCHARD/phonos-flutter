@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConsultaCard extends StatefulWidget {
   final String date;
   final String time;
   final String mode;
   final String status;
+  final List<dynamic> endereco;
 
   ConsultaCard(
       {super.key,
       required this.date,
       required this.time,
       required this.mode,
-      required this.status});
+      required this.status,
+      required this.endereco});
 
   @override
   State<ConsultaCard> createState() => _ConsultaCardState();
@@ -19,16 +22,31 @@ class ConsultaCard extends StatefulWidget {
 
 class _ConsultaCardState extends State<ConsultaCard> {
   late Color color = Colors.white;
+  late String link = "";
 
   @override
   void initState() {
     super.initState();
+
+    if (widget.endereco[0].substring(0,5) == "https") {
+      link = widget.endereco[0];
+    }
+
     if (widget.status == "Cancelado")
       color = Colors.red;
     else if (widget.status == "Agendado")
       color = Colors.orange;
     else
       color = Color(0xFF449BC0);
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -39,7 +57,7 @@ class _ConsultaCardState extends State<ConsultaCard> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 100,
+              height: 105,
               width: 10,
               decoration: BoxDecoration(
                 color: Color(0xFF449BC0),
@@ -49,7 +67,7 @@ class _ConsultaCardState extends State<ConsultaCard> {
             Container(
               alignment: Alignment.topLeft,
               constraints: BoxConstraints(minWidth: 220, maxWidth: 400),
-              width: MediaQuery.of(context).size.width/1.7,
+              width: MediaQuery.of(context).size.width/1.5,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.horizontal(right: Radius.circular(7)),
                   color: Colors.white,
@@ -64,36 +82,63 @@ class _ConsultaCardState extends State<ConsultaCard> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Data: "+widget.date,
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      "Horário: "+widget.time,
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      widget.mode,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF449BC0)),
-                    ),
+                    SizedBox(height: 5),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.status,
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w800, color: color),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Data: "+widget.date,
+                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "Horário: "+widget.time,
+                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              widget.mode,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF449BC0)),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        (link == "") ? Container() :Container(
+                          height: 30,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              await _launchInBrowser(Uri.parse(link));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(30, 30),
+                              primary: Color(0xFF449BC0),
+                              onPrimary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                            ),
+                            child: Icon(Icons.start, size: 20,),
+                          ),
                         ),
                       ],
                     ),
+                    Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              widget.status,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w800, color: color),
+                            ),
+                          ],
+                        ),
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:app_fono/api/api_service.dart';
+import 'package:app_fono/api/models/agendamento.dart';
 import 'package:app_fono/variables/globals.dart';
 import 'package:app_fono/widgets/consulta_card.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
@@ -11,6 +12,16 @@ import '../widgets/appbar.dart';
 class Consultas extends StatelessWidget {
 
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
+  Future<List<Agendamento>?> getAgendamentosList() async {
+    List<Agendamento> ?reversedList;
+    var list = await ApiService().getAgendamentos(USER_TOKEN, ACCESS_TOKEN);
+    if (list!= null) {
+      reversedList = List.from(list.reversed);
+      return reversedList;
+    }
+    return reversedList;
+  }
 
   const Consultas({super.key});
 
@@ -28,7 +39,7 @@ class Consultas extends StatelessWidget {
             child: ResponsiveBox(
               children: [
                 Text(
-                  "Histórico de Consultas",
+                  "Suas Consultas",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
@@ -39,8 +50,8 @@ class Consultas extends StatelessWidget {
                 Container(
                   constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height-250),
                   child: FutureBuilder(
-                    future: ApiService().getAgendamentos(USER_TOKEN, ACCESS_TOKEN),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    future: getAgendamentosList(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) { 
 
                       try {
                         if (snapshot.data.length == 0) return Text(
@@ -55,7 +66,7 @@ class Consultas extends StatelessWidget {
                       
                       if (snapshot.hasData) {
                         return Container(
-                          constraints: BoxConstraints(maxWidth: 440),
+                          constraints: BoxConstraints(maxWidth: 420),
                           child: ListView.builder(
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -64,7 +75,8 @@ class Consultas extends StatelessWidget {
                                 date: snapshot.data[index].data,
                                 time: snapshot.data[index].hora,
                                 mode: capitalize(snapshot.data[index].tipo),
-                                status: capitalize(snapshot.data[index].status)
+                                status: capitalize(snapshot.data[index].status),
+                                endereco: snapshot.data[index].endereco,
                               );
                               
                             },

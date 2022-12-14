@@ -7,7 +7,7 @@ class Agendamento {
   final String paciente;
   final String tipo;
   final String status;
-  final String endereco;
+  final List<dynamic> endereco;
   final int v;
   Agendamento({
     required this.id,
@@ -27,7 +27,7 @@ class Agendamento {
     String? paciente,
     String? tipo,
     String? status,
-    String? endereco,
+    List<dynamic>? endereco,
     int? v,
   }) {
     return Agendamento(
@@ -63,7 +63,7 @@ class Agendamento {
       paciente: map['paciente'] as String,
       tipo: map['tipo'] as String,
       status: map['status'] as String,
-      endereco: map['endereco'] as String,
+      endereco: map['endereco'] as List<dynamic>,
       v: map['__v'] as int,
     );
   }
