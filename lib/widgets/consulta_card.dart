@@ -29,6 +29,8 @@ class _ConsultaCardState extends State<ConsultaCard> {
   void initState() {
     super.initState();
 
+    print(widget.mode);
+
     if (widget.endereco[0].substring(0, 5) == "https") {
       link = widget.endereco[0];
     }
@@ -131,7 +133,7 @@ class _ConsultaCardState extends State<ConsultaCard> {
                           ],
                         ),
                         Spacer(),
-                        (widget.mode == 'presencial')
+                        (widget.mode == 'Presencial')
                             ? Container()
                             : Container(
                                 height: 30,

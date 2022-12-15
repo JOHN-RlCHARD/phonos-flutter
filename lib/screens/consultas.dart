@@ -9,8 +9,15 @@ import 'package:flutter/material.dart';
 import '../api/models/paciente.dart';
 import '../widgets/appbar.dart';
 
-class Consultas extends StatelessWidget {
+class Consultas extends StatefulWidget {
 
+  const Consultas({super.key});
+
+  @override
+  State<Consultas> createState() => _ConsultasState();
+}
+
+class _ConsultasState extends State<Consultas> {
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   Future<List<Agendamento>?> getAgendamentosList() async {
@@ -22,8 +29,6 @@ class Consultas extends StatelessWidget {
     }
     return reversedList;
   }
-
-  const Consultas({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +43,37 @@ class Consultas extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ResponsiveBox(
               children: [
-                Text(
-                  "Suas Consultas",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 20,
-                  )
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(
+                      "Suas Consultas",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                      )
+                    ),
+                    SizedBox(width: 5,),
+                    Container(
+                      width: 40,
+                      child: TextButton(onPressed: () => setState(() {}), 
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF449BC0),
+                            shape: BoxShape.circle
+                          ),
+                          child: Icon(Icons.refresh, color: Colors.white, size: 20,),
+                        )
+                      ),
+                    )
+                  ],
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 20,),
                 Container(
-                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height-250),
+                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height-290),
                   child: FutureBuilder(
                     future: getAgendamentosList(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) { 
