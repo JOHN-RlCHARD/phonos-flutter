@@ -4,9 +4,12 @@ import 'package:app_fono/api/models/access_token.dart';
 import 'package:app_fono/api/models/agendamento.dart';
 import 'package:app_fono/api/models/fono.dart';
 import 'package:app_fono/api/models/paciente.dart';
+import 'package:app_fono/screens/consultas.dart';
 import 'package:app_fono/variables/globals.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+
+import 'models/atividade.dart';
 
 class ApiService {
   final String url = "http://" + IP_HOST + ":3000";
@@ -85,6 +88,20 @@ class ApiService {
         List<Agendamento>.from(data.map((cat) => Agendamento.fromMap(cat)));
 
     return agendamentos;
+  }
+
+  Future<List<Atividade>?> getAtividades(
+      String userToken, String accessToken) async {
+    final uri = Uri.parse('$url/atividades/filterpaciente/${userToken}');
+
+    final res = await http
+        .get(uri, headers: {"Authorization": "Bearer ${accessToken}"});
+
+    final data = jsonDecode(res.body);
+    final atividades =
+        List<Atividade>.from(data.map((cat) => Atividade.fromMap(cat)));
+
+    return atividades;
   }
 
   Future<Fono?> getFonoByCrfa(String crfa, String accessToken) async {

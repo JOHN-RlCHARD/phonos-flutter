@@ -3,6 +3,7 @@ import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/consultas.dart';
 import 'package:app_fono/screens/home.dart';
 import 'package:app_fono/screens/profile.dart';
+import 'package:app_fono/screens/tasks.dart';
 import 'package:app_fono/variables/globals.dart';
 import 'package:app_fono/widgets/custom_button.dart';
 import 'package:app_fono/widgets/responsive_bg.dart';
@@ -87,14 +88,26 @@ class HomePaciente extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
+                      CustomButton(
+                          icon: Icon(Icons.task),
+                          text: 'Tarefas',
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => Atividades())));
+                          }),
+                      const SizedBox(
+                        height: 20,
+                      ),
 
                       // CustomButton(
                       //     icon: Icon(Icons.meeting_room),
                       //     text: 'Ingressar na Consulta',
                       //     onPressed: () async {
-                            
+
                       //       await _launchInBrowser(Uri.parse("https://us05web.zoom.us/j/83486298042?pwd=WmoyQjd3RFBaSmIva1RPSXZwTEkvUT09"));
-                            
+
                       //     }),
                       // const SizedBox(
                       //   height: 20,

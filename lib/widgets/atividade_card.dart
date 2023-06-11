@@ -1,26 +1,27 @@
+import 'package:app_fono/variables/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ConsultaCard extends StatefulWidget {
+class AtividadeCard extends StatefulWidget {
+  final String titulo;
   final String date;
-  final String time;
-  final String mode;
+  final String desc;
   final String status;
-  final List<dynamic> endereco;
+  final String arquivoPath;
 
-  ConsultaCard(
+  AtividadeCard(
       {super.key,
+      required this.titulo,
       required this.date,
-      required this.time,
-      required this.mode,
+      required this.desc,
       required this.status,
-      required this.endereco});
+      required this.arquivoPath});
 
   @override
-  State<ConsultaCard> createState() => _ConsultaCardState();
+  State<AtividadeCard> createState() => _AtividadeCardState();
 }
 
-class _ConsultaCardState extends State<ConsultaCard> {
+class _AtividadeCardState extends State<AtividadeCard> {
   late Color color = Colors.white;
   late String link = "";
   late bool _outDated = true;
@@ -29,24 +30,20 @@ class _ConsultaCardState extends State<ConsultaCard> {
   void initState() {
     super.initState();
 
-    if (widget.endereco[0].substring(0, 5) == "https") {
-      link = widget.endereco[0];
-    }
-
     var cardYear = int.parse(widget.date.substring(0, 4));
     var cardMonth = int.parse(widget.date.substring(5, 7));
     var cardDay = int.parse(widget.date.substring(8, 10));
 
-    var now = DateTime.now();
+    // var now = Datedesc.now();
 
-    if (now.year == cardYear &&
-        now.month == cardMonth &&
-        now.day == cardDay &&
-        link != null) {
-      if (now.hour < 2 + int.parse(widget.time.substring(0, 2))) {
-        _outDated = false;
-      }
-    }
+    // if (now.year == cardYear &&
+    //     now.month == cardMonth &&
+    //     now.day == cardDay &&
+    //     link != null) {
+    //   if (now.hour < 2 + int.parse(widget.desc.substring(0, 2))) {
+    //     _outDated = false;
+    //   }
+    // }
 
     if (widget.status == "true")
       color = Colors.green;
@@ -107,59 +104,54 @@ class _ConsultaCardState extends State<ConsultaCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Data: " + widget.date,
+                              widget.titulo,
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w800),
+                            ),
+                            Text(
+                              widget.desc,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w600),
                             ),
                             Text(
-                              "Horário: " + widget.time,
+                              "Entrega até: " + widget.date,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              (widget.mode == "true") ? "Presencial" : "Online",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color(0xFF449BC0)),
-                            ),
                           ],
                         ),
                         Spacer(),
-                        (widget.mode == 'Presencial')
-                            ? Container()
-                            : Container(
-                                height: 30,
-                                child: ElevatedButton(
-                                  onPressed: (_outDated)
-                                      ? null
-                                      : () async {
-                                          await _launchInBrowser(
-                                              Uri.parse(link));
-                                        },
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(30, 30),
-                                    primary: Color(0xFF449BC0),
-                                    onPrimary: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                  ),
-                                  child: Icon(
-                                    Icons.start,
-                                    size: 20,
-                                  ),
-                                ),
-                              ),
+                        Container(
+                          height: 30,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              var path = widget.arquivoPath;
+                              await _launchInBrowser(Uri.parse(
+                                  'http://$IP_HOST:3000/atividades/file/$path'));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(30, 30),
+                              primary: Color(0xFF449BC0),
+                              onPrimary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                            ),
+                            child: Icon(
+                              Icons.download,
+                              size: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          (widget.status == "true") ? "Finalizado" : "Agendado",
+                          (widget.status == "true") ? "Entregue" : "Aberto",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
