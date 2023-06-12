@@ -6,6 +6,7 @@ import 'package:app_fono/api/models/fono.dart';
 import 'package:app_fono/api/models/paciente.dart';
 import 'package:app_fono/screens/consultas.dart';
 import 'package:app_fono/variables/globals.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
@@ -51,6 +52,25 @@ class ApiService {
       return accesstoken.access_token;
     } else
       return null;
+  }
+
+  Future putSendActivity(String id, String accessToken, String file) async {
+    final uri = Uri.parse('$url/atividades/paciente/${id}');
+
+    // var map = new Map<String, dynamic>();
+    // map['file'] = file;
+    // map['isEntregue'] = 'true';
+
+    var request = new http.MultipartRequest("PUT", uri);
+    request.fields['isEntregue'] = "true";
+    var requestFile = await http.MultipartFile.fromPath('file', file);
+    request.files.add(requestFile);
+    request.headers["Authorization"] = "Bearer ${accessToken}";
+
+    request.send();
+
+    // final res = await http.put(uri,
+    //     body: map, headers: {"Authorization": "Bearer ${accessToken}"});
   }
 
   Future putFirstLogin(

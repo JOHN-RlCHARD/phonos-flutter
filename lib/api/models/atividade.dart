@@ -11,6 +11,7 @@ class Atividade {
   final String fono;
   final String paciente;
   final int v;
+  final String entregaPath;
   Atividade({
     required this.id,
     required this.titulo,
@@ -22,6 +23,7 @@ class Atividade {
     required this.fono,
     required this.paciente,
     required this.v,
+    required this.entregaPath,
   });
 
   Atividade copyWith({
@@ -35,19 +37,20 @@ class Atividade {
     String? fono,
     String? paciente,
     int? v,
+    String? entregaPath,
   }) {
     return Atividade(
-      id: id ?? this.id,
-      titulo: titulo ?? this.titulo,
-      entrega: entrega ?? this.entrega,
-      isEntregue: isEntregue ?? this.isEntregue,
-      descricao: descricao ?? this.descricao,
-      feedback: feedback ?? this.feedback,
-      arquivoPath: arquivoPath ?? this.arquivoPath,
-      fono: fono ?? this.fono,
-      paciente: paciente ?? this.paciente,
-      v: v ?? this.v,
-    );
+        id: id ?? this.id,
+        titulo: titulo ?? this.titulo,
+        entrega: entrega ?? this.entrega,
+        isEntregue: isEntregue ?? this.isEntregue,
+        descricao: descricao ?? this.descricao,
+        feedback: feedback ?? this.feedback,
+        arquivoPath: arquivoPath ?? this.arquivoPath,
+        fono: fono ?? this.fono,
+        paciente: paciente ?? this.paciente,
+        v: v ?? this.v,
+        entregaPath: entregaPath ?? this.entregaPath);
   }
 
   Map<String, dynamic> toMap() {
@@ -62,6 +65,7 @@ class Atividade {
       'fono': fono,
       'paciente': paciente,
       'v': v,
+      'entregaPath': entregaPath,
     };
   }
 
@@ -77,6 +81,7 @@ class Atividade {
       fono: map['fono'] as String,
       paciente: map['paciente'] as String,
       v: map['__v'] as int,
+      entregaPath: map['entregaPath'] as String,
     );
   }
 
@@ -87,7 +92,7 @@ class Atividade {
 
   @override
   String toString() {
-    return 'Atividade(id: $id, titulo: $titulo, entrega: $entrega, isEntregue: $isEntregue, descricao: $descricao, feedback: $feedback, arquivoPath: $arquivoPath, fono: $fono, paciente: $paciente, v: $v)';
+    return 'Atividade(id: $id, titulo: $titulo, entrega: $entrega, isEntregue: $isEntregue, descricao: $descricao, feedback: $feedback, arquivoPath: $arquivoPath, fono: $fono, paciente: $paciente, v: $v, entregaPath: $entregaPath)';
   }
 
   @override
@@ -103,7 +108,8 @@ class Atividade {
         other.arquivoPath == arquivoPath &&
         other.fono == fono &&
         other.paciente == paciente &&
-        other.v == v;
+        other.v == v &&
+        other.entregaPath == entregaPath;
   }
 
   @override

@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:app_fono/api/api_service.dart';
 import 'package:app_fono/variables/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AtividadeCard extends StatefulWidget {
   final String titulo;
@@ -8,6 +12,7 @@ class AtividadeCard extends StatefulWidget {
   final String desc;
   final String status;
   final String arquivoPath;
+  final String id;
 
   AtividadeCard(
       {super.key,
@@ -15,7 +20,8 @@ class AtividadeCard extends StatefulWidget {
       required this.date,
       required this.desc,
       required this.status,
-      required this.arquivoPath});
+      required this.arquivoPath,
+      required this.id});
 
   @override
   State<AtividadeCard> createState() => _AtividadeCardState();
@@ -148,7 +154,7 @@ class _AtividadeCardState extends State<AtividadeCard> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           (widget.status == "true") ? "Entregue" : "Aberto",
@@ -156,6 +162,38 @@ class _AtividadeCardState extends State<AtividadeCard> {
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
                               color: color),
+                        ),
+                        Spacer(),
+                        Container(
+                          height: 30,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              FilePickerResult? result =
+                                  await FilePicker.platform.pickFiles();
+
+                              if (result != null) {
+                                final file = result.files.single;
+
+                                await ApiService().putSendActivity(
+                                    widget.id, ACCESS_TOKEN, file.path!);
+                              } else {
+                                // User canceled the picker
+                              }
+
+                              setState(() {});
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(30, 30),
+                              primary: Color(0xFF449BC0),
+                              onPrimary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                            ),
+                            child: Icon(
+                              Icons.upload,
+                              size: 20,
+                            ),
+                          ),
                         ),
                       ],
                     ),

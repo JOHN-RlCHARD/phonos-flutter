@@ -105,6 +105,7 @@ class _AtividadesState extends State<Atividades> {
                                 desc: snapshot.data[index].descricao,
                                 status: snapshot.data[index].isEntregue,
                                 arquivoPath: snapshot.data[index].arquivoPath,
+                                id: snapshot.data[index].id,
                               );
                             },
                           ),
